@@ -22,7 +22,7 @@ I also spend a fair amount of time reading papers and rebuilding the ideas mysel
 
 ## 🚀 Current Projects
 
-**[KnowYourRepo](https://github.com/Atharv-3105/KnowYourRepo)** — paste a GitHub URL, get back a call graph, dependency map, and a RAG-based chat interface for the codebase. Go API server, Python/FastAPI ML sidecar, Next.js frontend. Local embeddings via Ollama, ChromaDB for vector storage — spent a good chunk of time getting ingestion fast (went from ~20 minutes down to something reasonable by batching embed calls and running a worker pool in Go).
+**[KnowYourRepo](https://github.com/Atharv-3105/KnowYourRepo)** — paste a GitHub URL, get back a call graph, dependency map, and a RAG-based chat interface for the codebase. Go API server, Python/FastAPI ML sidecar, Next.js frontend. 
 
 **[AI Architecture Diagram Generator](https://github.com/Atharv-3105/ArchiGen-AI)** — turns a plain-language description into an Excalidraw diagram. Runs as a small pipeline of agents (parse → layout → validate → repair → export) orchestrated with LangGraph, FastAPI backend, React/TypeScript frontend.
 
