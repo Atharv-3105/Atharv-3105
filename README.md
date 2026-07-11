@@ -30,7 +30,7 @@ I also spend a fair amount of time reading papers and rebuilding the ideas mysel
 
 **[SmartFile Manager](https://github.com/Atharv-3105/SmartFile-Manager)** — a distributed semantic file search pipeline in Go + Python. First project I built that a senior dev actually reviewed and rated well.
 
-**[Semantic-Duel](https://github.com/Atharv-3105/Semantic-Duel)** — a real-time multiplayer AI debate platform, Go + WebSockets + ML.
+**[Semantic-Duel](https://github.com/Atharv-3105/Semantic-Duel)** — a real-time multiplayer word guessing game, Go + WebSockets + ML.
 
 ---
 
