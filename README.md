@@ -19,6 +19,9 @@ I also spend a fair amount of time reading papers and rebuilding the ideas mysel
 **Currently learning:** distributed systems, high-performance Go, AI infrastructure, search & retrieval systems.
 
 ---
+[![GitHub Stats](https://github-stats-extended.vercel.app/api?username=Atharv-3105&rank_icon=percentile&show_icons=true&include_all_commits=true&theme=dark)](https://github-stats-extended.vercel.app/api?username=Atharv-3105&rank_icon=percentile&show_icons=true&include_all_commits=true&theme=dark)
+
+---
 
 ## 🚀 Current Projects
 
