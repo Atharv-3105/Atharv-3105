@@ -2,7 +2,7 @@
 # Hi there, I'm Atharva Dwivedi 👋
 
 <h3 align="center">
-Backend Engineer • AI Systems • ML Infrastructure • Distributed Systems
+Backend Engineer • AI Systems • Deep-Learning • Distributed Systems
 </h3>
 
 
