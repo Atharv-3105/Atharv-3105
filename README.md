@@ -20,6 +20,7 @@ I also spend a fair amount of time reading papers and rebuilding the ideas mysel
 
 ---
 [![GitHub Stats](https://github-stats-extended.vercel.app/api?username=Atharv-3105&rank_icon=percentile&show_icons=true&include_all_commits=true&theme=dark)](https://github-stats-extended.vercel.app/api?username=Atharv-3105&rank_icon=percentile&show_icons=true&include_all_commits=true&theme=dark)
+![Profile Views](https://komarev.com/ghpvc/?username=Atharv-3105)
 
 ---
 
