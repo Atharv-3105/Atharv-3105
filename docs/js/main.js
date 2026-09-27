@@ -364,7 +364,8 @@
     { id: "music", label: "Social Music Graph", type: "project", href: "#other", text: "A Go service over a Neo4j social graph, with GraphSAGE embeddings." },
     { id: "lm", label: "LM Implementations", type: "project", href: "#lab", text: "LLaMA 2, Gemma 3, Qwen 3 and a small LM, rebuilt in PyTorch." },
     { id: "vqvae", label: "VQ-VAE", type: "project", href: "#lab", text: "Vector-quantised autoencoder with a learnable codebook, trained on CIFAR-10." },
-    { id: "rl", label: "RL from scratch", type: "project", href: "#lab", text: "DQN, Dueling DQN, A3C and Soft Actor-Critic, implemented by hand." },
+    { id: "rl", label: "RL from scratch", type: "project", href: "#lab", text: "DQN, Dueling DQN, A3C, PPO and Soft Actor-Critic, implemented by hand." },
+    { id: "cdrps", label: "CDRPS (Helionyex)", type: "project", href: "#service", text: "Climate data reception and processing system, built during my internship at Helionyex Solutions." },
 
     { id: "go", label: "Go", type: "lang", text: "The long-running side: services, worker pools, WebSocket hubs and file watchers." },
     { id: "python", label: "Python", type: "lang", text: "Models, embeddings, agents and the ML services that sit next to the Go ones." },
@@ -375,7 +376,7 @@
     { id: "langgraph", label: "LangGraph", type: "tech", text: "State machines for agent pipelines that need loops and conditional routing." },
     { id: "crewai", label: "CrewAI", type: "tech", text: "Role-based agent crews." },
     { id: "pytorch", label: "PyTorch", type: "tech", text: "Every from-scratch model, plus the GNN and spiking-network work." },
-    { id: "pg", label: "Postgres + pgvector", type: "tech", text: "Relational data and vector search in one database." },
+    { id: "pg", label: "PostgreSQL", type: "tech", text: "The primary store for KnowYourRepo, with pgvector for embeddings, and for CDRPS." },
     { id: "sqlite", label: "SQLite", type: "tech", text: "Zero-config storage, including a database-backed rate limiter." },
     { id: "neo4j", label: "Neo4j", type: "tech", text: "Graph database for users, tracks and the links between them." },
     { id: "chroma", label: "ChromaDB", type: "tech", text: "Persistent local vector store." },
@@ -392,7 +393,8 @@
     { id: "router", label: "Multi-LLM failover", type: "tech", text: "Routing across providers, retrying when a response fails validation." },
     { id: "telegram", label: "Telegram bot", type: "tech", text: "JobBot's entire interface." },
     { id: "gnn", label: "GraphSAGE", type: "tech", text: "Graph neural network embeddings." },
-    { id: "snn", label: "Spiking neurons", type: "tech", text: "Leaky integrate-and-fire dynamics trained through surrogate gradients." }
+    { id: "snn", label: "Spiking neurons", type: "tech", text: "Leaky integrate-and-fire dynamics trained through surrogate gradients." },
+    { id: "electron", label: "Electron", type: "tech", text: "Cross-platform desktop apps." }
   ];
 
   var LINKS = {
@@ -408,7 +410,8 @@
     music: ["go", "gin", "neo4j", "python", "fastapi", "pytorch", "gnn"],
     lm: ["python", "pytorch"],
     vqvae: ["python", "pytorch"],
-    rl: ["python", "pytorch"]
+    rl: ["python", "pytorch"],
+    cdrps: ["ts", "react", "pg", "electron"]
   };
 
   (function graph() {
@@ -690,7 +693,7 @@
       if (n.href) {
         elOpen.hidden = false;
         elOpen.href = n.href;
-        elOpen.textContent = n.href === "#lab" ? "See the lab notebook ↓" : n.href === "#other" ? "See smaller builds ↓" : "Open case file ↑";
+        elOpen.textContent = n.href === "#lab" ? "See the lab notebook ↓" : n.href === "#other" ? "See smaller builds ↓" : n.href === "#service" ? "See service record ↑" : "Open case file ↑";
       } else {
         elOpen.hidden = true;
       }

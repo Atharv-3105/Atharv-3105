@@ -15,6 +15,7 @@
   --rule-strong: #0F1A2C;
   --accent: #82540E;
   --accent-soft: rgba(130, 84, 14, 0.1);
+  --stamp-b: #1F6B61;
   --on-ink: #EFF3F0;
   --topbar: rgba(230, 235, 231, 0.86);
   --card-shadow: 0 34px 60px -28px rgba(15, 26, 44, 0.55), 0 14px 26px -14px rgba(15, 26, 44, 0.35);
@@ -52,6 +53,7 @@
     --rule-strong: #E5E9E2;
     --accent: #D7B46C;
     --accent-soft: rgba(215, 180, 108, 0.12);
+    --stamp-b: #7CC4B8;
     --on-ink: #0B1327;
     --topbar: rgba(11, 19, 39, 0.84);
     --card-shadow: 0 40px 70px -26px rgba(0, 0, 0, 0.8), 0 16px 30px -14px rgba(0, 0, 0, 0.6);
@@ -73,6 +75,7 @@
   --rule-strong: #E5E9E2;
   --accent: #D7B46C;
   --accent-soft: rgba(215, 180, 108, 0.12);
+  --stamp-b: #7CC4B8;
   --on-ink: #0B1327;
   --topbar: rgba(11, 19, 39, 0.84);
   --card-shadow: 0 40px 70px -26px rgba(0, 0, 0, 0.8), 0 16px 30px -14px rgba(0, 0, 0, 0.6);
@@ -106,6 +109,7 @@ body {
 }
 
 img { max-width: 100%; display: block; }
+.nowrap { white-space: nowrap; }
 
 a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { color: var(--accent); }
@@ -283,6 +287,8 @@ h2 {
 @media (max-width: 560px) {
   .brand__id { display: none; }
   .topbar__inner { gap: 14px; }
+  .nav { gap: 11px; }
+  .nav a { letter-spacing: 0.03em; }
 }
 
 /* ==========================================================================
@@ -838,6 +844,14 @@ h2 {
 }
 .about__text { display: grid; gap: 1.1em; max-width: 60ch; font-size: 1.125rem; }
 .about__text p:first-child { font-size: var(--fs-lede); line-height: 1.45; }
+.about__learning {
+  display: grid;
+  gap: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-size: 1rem;
+}
 
 .marks__title {
   display: flex;
@@ -1018,6 +1032,137 @@ h2 {
   border-left: 2px solid var(--accent);
   background: var(--paper-2);
 }
+
+/* ---------- service record ---------- */
+
+.service__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+
+.record { list-style: none; border-top: 1px solid var(--rule-strong); }
+.record__item {
+  display: grid;
+  grid-template-columns: 10.5em minmax(0, 1fr);
+  gap: 8px 24px;
+  padding-block: 28px 32px;
+  border-bottom: 1px solid var(--rule);
+}
+.record__when {
+  padding-top: 0.55em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.record__body { min-width: 0; }
+.record__role {
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 1.15;
+}
+.record__org { margin-top: 4px; color: var(--ink-2); }
+.record__desc { margin-top: 14px; max-width: 58ch; }
+.record .readings { margin-top: 22px; }
+.record .notes { margin-top: 22px; }
+.record .chips { margin-top: 20px; }
+
+.skills__title {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.skills dl > div {
+  display: grid;
+  grid-template-columns: 7.5em minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.skills dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.skills dd { font-size: 0.95rem; line-height: 1.5; }
+
+/* ---------- achievements: visa-page stamps ---------- */
+
+.stamp-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.stamps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2.5vw, 36px);
+  padding: clamp(20px, 3vw, 44px);
+  border: 1px solid var(--rule);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(var(--line-ink), 0.05) 27px 28px),
+    var(--paper-2);
+}
+.stamps > li {
+  display: grid;
+  place-items: center;
+  min-height: clamp(150px, 16vw, 210px);
+  min-width: 0;
+}
+
+.stamp {
+  --ink: var(--accent);
+  --size: 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 210px;
+  aspect-ratio: 1.45;
+  padding: 10px 14px;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+  border: 3px solid var(--ink);
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+  transform: rotate(var(--rot, 0deg));
+  filter: url(#stamp-ink);
+  opacity: 0.9;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.stamp--b { --ink: var(--stamp-b); }
+.stamp--round { aspect-ratio: 1; max-width: 172px; border-radius: 50%; outline-offset: 4px; padding: 24px; }
+.stamp--round .stamp__big { white-space: normal; }
+.stamp--oval { aspect-ratio: 1.6; border-radius: 50%; padding: 12px 22px; }
+a.stamp:hover { transform: rotate(0deg) scale(1.04); opacity: 1; color: var(--ink); }
+a.stamp:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+
+.stamp__top,
+.stamp__bottom {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.stamp__big {
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: calc(var(--big, 1) * clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem));
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.stamp__top { padding-bottom: 4px; border-bottom: 1px solid currentColor; }
 
 /* ---------- graph ---------- */
 
@@ -1298,6 +1443,8 @@ h2 {
   .ledger__row { grid-template-columns: 1fr; }
   .ledger__stack { justify-self: start; text-align: left; }
   .contact__grid { grid-template-columns: 1fr; }
+  .service__grid { grid-template-columns: 1fr; }
+  .stamps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 520px) {
@@ -1310,6 +1457,10 @@ h2 {
   .pipeline li:first-child::before, .pipeline li:first-child::after { display: block; }
   .pipeline li:last-child::before, .pipeline li:last-child::after { display: none; }
   .contact__list > div { grid-template-columns: 1fr; gap: 4px; }
+  .record__item { grid-template-columns: 1fr; }
+  .record__when { padding-top: 0; }
+  .skills dl > div { grid-template-columns: 1fr; gap: 2px; }
+  .stamp__top, .stamp__bottom { font-size: 0.52rem; letter-spacing: 0.06em; }
   .graph { height: 380px; }
 }
 
@@ -1318,4 +1469,5 @@ h2 {
   .card-float { animation: none; }
   .card { transition: none; }
   .toast { transition: none; }
+  .stamp { transition: none; }
 }
