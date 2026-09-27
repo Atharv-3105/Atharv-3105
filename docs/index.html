@@ -99,13 +99,14 @@
 
       <div class="platforms" aria-label="What runs at this station">
         <div class="plat" style="--c:var(--l-b)"><span class="plat__no" aria-hidden="true"><small>PLAT</small>1</span><div class="plat__txt"><b>Go services</b><span>Gin · gRPC · WebSockets</span><span class="plat__dep">Departures: KnowYourRepo, SmartFile, Semantic-Duel, Social Music Graph</span></div></div>
-        <div class="plat" style="--c:var(--l-m)"><span class="plat__no" aria-hidden="true"><small>PLAT</small>2</span><div class="plat__txt"><b>Python ML</b><span>PyTorch · FastAPI</span><span class="plat__dep">Departures: Fly Brain, SmartFile, the lab notebook</span></div></div>
+        <div class="plat" style="--c:var(--l-m)"><span class="plat__no" aria-hidden="true"><small>PLAT</small>2</span><div class="plat__txt"><b>Python ML</b><span>PyTorch · FastAPI</span><span class="plat__dep">Departures: From_Scratch, SmartFile, LM implementations</span></div></div>
         <div class="plat" style="--c:var(--l-l)"><span class="plat__no" aria-hidden="true"><small>PLAT</small>3</span><div class="plat__txt"><b>RAG</b><span>pgvector · FAISS · Chroma</span><span class="plat__dep">Departures: KnowYourRepo, Local RAG, Financial Agentic RAG</span></div></div>
         <div class="plat" style="--c:var(--l-d)"><span class="plat__no" aria-hidden="true"><small>PLAT</small>4</span><div class="plat__txt"><b>Agents</b><span>LangGraph · guards</span><span class="plat__dep">Departures: JobBot, ArchiGen AI, Financial Doc Analyzer</span></div></div>
       </div>
     </div>
 
     <nav class="signs" aria-label="Sections">
+      <a class="sign" href="#about"><span class="pic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="6.5" r="3.6" fill="currentColor"/><path d="M4.5 21v-3.2A5.8 5.8 0 0 1 10.3 12h3.4a5.8 5.8 0 0 1 5.8 5.8V21z" fill="currentColor"/></svg></span><span>About<small>who I am</small></span></a>
       <a class="sign" href="#departures"><span class="pic" aria-hidden="true">→</span><span>Departures<small>projects</small></span></a>
       <a class="sign" href="#arrivals"><span class="pic" aria-hidden="true">←</span><span>Arrivals<small>experience</small></span></a>
       <a class="sign" href="#network"><span class="pic" aria-hidden="true">⌘</span><span>Network map<small>skills</small></span></a>
@@ -113,6 +114,32 @@
       <a class="sign" href="#tickets"><span class="pic" aria-hidden="true">★</span><span>Tickets<small>achievements</small></span></a>
       <a class="sign" href="#info"><span class="pic" aria-hidden="true">i</span><span>Information<small>contact</small></span></a>
     </nav>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="wrap sec" id="about" aria-labelledby="h-about">
+    <div class="sec-head">
+      <h2 id="h-about"><span class="pic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="6.5" r="3.6" fill="currentColor"/><path d="M4.5 21v-3.2A5.8 5.8 0 0 1 10.3 12h3.4a5.8 5.8 0 0 1 5.8 5.8V21z" fill="currentColor"/></svg></span>About me</h2>
+      <p>Who runs this station, what I care about when I build, and what I'm learning next.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="about-lede">I like building the backend of AI systems more than the AI itself: the ingestion pipelines, the retrieval layer, the service that has to stay up and stay fast.</p>
+        <p>Most of what I build sits where Go meets Python. Go handles concurrency, I/O and the API; Python handles embeddings, retrieval and model calls. Right now I'm mostly thinking about repository intelligence, RAG infrastructure, and what it takes to run these pipelines reliably at some scale instead of once in a notebook.</p>
+        <p>I also read papers and rebuild the ideas myself. Writing attention, RoPE or a KV cache by hand is usually the fastest way for me to understand how something works, and that habit is what From_Scratch grew out of.</p>
+        <p>I finished a B.Tech in AI &amp; ML at AKTU in 2026 and now work as a software developer intern at Helionyex Solutions, on a system that checks and stores climate data from weather stations. Along the way I've mentored 150+ educators in Python and generative AI at NimbleQ, reached the Smart India Hackathon internal finals twice, and solved 600+ problems on LeetCode.</p>
+        <div class="learning"><p class="lbl">Currently learning</p><ul class="chips"><li>Distributed systems</li><li>High-performance Go</li><li>AI infrastructure</li><li>Search and retrieval</li></ul></div>
+      </div>
+      <aside class="rules" aria-labelledby="h-rules">
+        <p class="lbl" id="h-rules">Station rules · how I build</p>
+        <dl>
+          <div><dt>Go for the service, Python for the model</dt><dd>KnowYourRepo, SmartFile Manager and Semantic-Duel all split this way: a Go process owns concurrency and the API, a Python service owns the models.</dd></div>
+          <div><dt>Let code check what a model can't be trusted with</dt><dd>Graphviz lays out ArchiGen's diagrams, difflib reports JobBot's résumé edits, and plain functions compute financial ratios.</dd></div>
+          <div><dt>Degrade instead of crashing</dt><dd>Validated multi-provider failover, polling fallbacks when file events go missing, and repair loops when a diagram fails validation.</dd></div>
+          <div><dt>Measure it, then publish the result</dt><dd>Prometheus and Grafana on KnowYourRepo, and a JobBot test audit that shows the 0/12 run next to the 12/12 fix.</dd></div>
+        </dl>
+      </aside>
+    </div>
   </section>
 
   <!-- ================= DEPARTURES ================= -->
@@ -126,11 +153,11 @@
       <div class="dep__cols" aria-hidden="true"><span class="c-time">LAST PUSH</span><span>DESTINATION</span><span class="c-line">LINES</span><span>STATUS</span></div>
       <div id="dep-rows">
         <a class="dep__row" href="#p-kyr"><span class="dep__time">09/26</span><span class="dep__dest"><span class="flaps" data-text="KNOWYOURREPO" aria-hidden="true"></span><span class="sr">KnowYourRepo</span></span><span class="dep__lines" aria-hidden="true"><span class="lb b">B</span><span class="lb l">L</span><span class="lb d">D</span><span class="lb o">O</span></span><span class="dep__status">IN DEV</span></a>
+        <a class="dep__row" href="#p-fs"><span class="dep__time">09/26</span><span class="dep__dest"><span class="flaps" data-text="FROM SCRATCH" aria-hidden="true"></span><span class="sr">From_Scratch</span></span><span class="dep__lines" aria-hidden="true"><span class="lb m">M</span></span><span class="dep__status">ONGOING</span></a>
         <a class="dep__row" href="#p-jb"><span class="dep__time">09/26</span><span class="dep__dest"><span class="flaps" data-text="JOBBOT" aria-hidden="true"></span><span class="sr">JobBot</span></span><span class="dep__lines" aria-hidden="true"><span class="lb l">L</span><span class="lb d">D</span></span><span class="dep__status">80% BUILT</span></a>
         <a class="dep__row" href="#p-ag"><span class="dep__time">07/26</span><span class="dep__dest"><span class="flaps" data-text="ARCHIGEN AI" aria-hidden="true"></span><span class="sr">ArchiGen AI</span></span><span class="dep__lines" aria-hidden="true"><span class="lb b">B</span><span class="lb l">L</span><span class="lb o">O</span></span><span class="dep__status">LIVE</span></a>
         <a class="dep__row" href="#p-sf"><span class="dep__time">03/26</span><span class="dep__dest"><span class="flaps" data-text="SMARTFILE MANAGER" aria-hidden="true"></span><span class="sr">SmartFile Manager</span></span><span class="dep__lines" aria-hidden="true"><span class="lb b">B</span><span class="lb m">M</span><span class="lb d">D</span><span class="lb o">O</span></span><span class="dep__status">SHIPPED</span></a>
         <a class="dep__row" href="#p-sd"><span class="dep__time">08/26</span><span class="dep__dest"><span class="flaps" data-text="SEMANTIC-DUEL" aria-hidden="true"></span><span class="sr">Semantic-Duel</span></span><span class="dep__lines" aria-hidden="true"><span class="lb b">B</span><span class="lb m">M</span><span class="lb o">O</span></span><span class="dep__status">PLAYABLE</span></a>
-        <a class="dep__row" href="#p-fb"><span class="dep__time">09/26</span><span class="dep__dest"><span class="flaps" data-text="FLY BRAIN" aria-hidden="true"></span><span class="sr">Fly Brain</span></span><span class="dep__lines" aria-hidden="true"><span class="lb m">M</span></span><span class="dep__status">EXPERIMENT</span></a>
       </div>
       <p class="dep__hint">Select a departure to jump to its details.</p>
     </div>
@@ -149,6 +176,21 @@
         <div class="readings"><div class="reading"><b>3</b><span>languages parsed</span></div><div class="reading"><b>5</b><span>model providers, one router</span></div><div class="reading"><b>6</b><span>services in compose</span></div></div>
         <ul class="notes"><li>Go API on Gin and pgx with a bounded worker pool and per-client rate limiting.</li><li>FastAPI sidecar routes to Groq, Gemini, Voyage, Ollama or any OpenAI-compatible endpoint.</li><li>2D and 3D call graph views; Prometheus metrics into a provisioned Grafana dashboard.</li></ul>
         <p class="links"><a href="https://github.com/Atharv-3105/KnowYourRepo" target="_blank" rel="noopener">Repository ↗</a></p>
+      </article>
+
+      <article class="trip" id="p-fs" style="--c:var(--l-m)" aria-labelledby="t-fs">
+        <div>
+          <div class="trip__top"><span class="trip__lines" aria-label="Lines: ML"><span class="lb m">M</span></span><span class="trip__status">ONGOING · SEP 2026</span></div>
+          <h3 id="t-fs" style="margin-top:10px">From_Scratch</h3>
+          <p class="stack">Python · NumPy · PyTorch · Gymnasium · Matplotlib · Jupyter</p>
+        </div>
+        <p>My workbench for learning by rebuilding: machine learning, deep learning and reinforcement learning built from first principles in NumPy and PyTorch, one component at a time, without high-level shortcuts.</p>
+        <div class="calling"><p class="lbl">Calling at</p>
+          <ol class="route"><li>Foundations<small>6 activations, loss functions, sine–cosine positional encoding</small></li><li>Attention<small>vanilla, multi-head, GQA, MLA, cross</small></li><li>U-Net<small>encoder–decoder segmentation, skip connections</small></li><li>VQ-VAE<small>learnable codebook</small></li><li>Diffusion<small>DDPM and VAE</small></li><li>Fine-tuning<small>OPT-125M with LoRA</small></li><li>RL suite<small>DQN, Dueling DQN, A3C, PPO, SAC</small></li><li>Fly Brain<small>spiking network from a fruit-fly connectome</small></li></ol>
+        </div>
+        <div class="readings"><div class="reading"><b>10</b><span>modules</span></div><div class="reading"><b>50</b><span>notebooks and scripts</span></div><div class="reading"><b>5</b><span>RL algorithms across 6 environments</span></div></div>
+        <ul class="notes"><li>PPO trained on CartPole, LunarLander and ViZDoom's Defend the Center, with episodes recorded along the way.</li><li>Fly Brain wires leaky integrate-and-fire neurons from the neuPrint male CNS connectome and learns Flappy Bird with REINFORCE while the connectome stays frozen.</li></ul>
+        <p class="links"><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">Repository ↗</a><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fly_Brain" target="_blank" rel="noopener">Fly Brain module ↗</a></p>
       </article>
 
       <article class="trip" id="p-jb" style="--c:var(--l-l)" aria-labelledby="t-jb">
@@ -211,19 +253,6 @@
         <p class="links"><a href="https://github.com/Atharv-3105/Semantic-Duel" target="_blank" rel="noopener">Repository ↗</a></p>
       </article>
 
-      <article class="trip" id="p-fb" style="--c:var(--l-m)" aria-labelledby="t-fb">
-        <div>
-          <div class="trip__top"><span class="trip__lines" aria-label="Lines: ML"><span class="lb m">M</span></span><span class="trip__status">EXPERIMENT · SEP 2026</span></div>
-          <h3 id="t-fb" style="margin-top:10px">Fly Brain</h3>
-          <p class="stack">PyTorch · SciPy sparse · pandas · neuPrint</p>
-        </div>
-        <p>A spiking neural network wired from a real fruit-fly connectome and taught to play Flappy Bird.</p>
-        <div class="calling"><p class="lbl">Calling at</p>
-          <ol class="route"><li>neuPrint<small>male CNS v1.0</small></li><li>Subgraph<small>visual → descending neurons</small></li><li>Simulate<small>LIF neurons, surrogate spikes</small></li><li>Decode<small>spike counts → flap</small></li><li>Learn<small>REINFORCE</small></li></ol>
-        </div>
-        <ul class="notes"><li>τ·dV/dt = −(V − V<sub>rest</sub>) + I(t). Synapse signs follow each neuron's neurotransmitter.</li><li>The connectome stays frozen as buffers; only the encoder and decoder learn.</li></ul>
-        <p class="links"><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fly_Brain" target="_blank" rel="noopener">Repository ↗</a></p>
-      </article>
     </div>
   </section>
 
