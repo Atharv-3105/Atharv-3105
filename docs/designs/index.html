@@ -19,6 +19,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Archiv
 h1 { margin: 10px 0 0; font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem); font-weight: 900; font-stretch: 125%; line-height: 0.95; text-transform: uppercase; text-wrap: balance; }
 .intro { margin: 16px 0 0; max-width: 60ch; color: var(--ink-2); font-size: 1.1rem; }
 .grid { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.grid .main { grid-column: 1 / -1; }
+.grid .main .opt { border: 2px solid var(--accent); }
 .opt { display: grid; gap: 8px; height: 100%; padding: 22px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; color: inherit; text-decoration: none; }
 .opt:hover { border-color: var(--ink); }
 .opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -33,10 +35,11 @@ h1 { margin: 10px 0 0; font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem); font-weig
 <body>
 <main class="wrap">
   <p class="eyebrow">Atharva Dwivedi · portfolio</p>
-  <h1>Four design options</h1>
-  <p class="intro">The same person and the same facts, told four ways. Each design is a complete site with light and dark themes and a phone layout. Pick one to publish at the root, or mix pieces.</p>
+  <h1>Design options</h1>
+  <p class="intro">The same person and the same facts, told several ways. The main site combines the station design from D with the detail of C. Each option is a complete site with light and dark themes and a phone layout.</p>
   <ul class="grid">
-    <li><a class="opt" href="../"><span class="k">A · current site</span><h2>Identity document</h2><p>An ID card that tilts in 3D and flips, with security print, a real MRZ, case files, a 3D project graph and visa-stamp achievements.</p><span class="meta">Archivo + Martian Mono · security-paper mint and passport navy</span><span class="go">Open option A →</span></a></li>
+    <li class="main"><a class="opt" href="../"><span class="k">Main site · D + C</span><h2>Atharva Central</h2><p>The station board from option D, carrying the full detail from option C: a station-master profile, platform signs, every project card open at once, a skills network map with a line guide, and a POST /hire information desk.</p><span class="meta">Overpass + Overpass Mono · station grey, board black, amber</span><span class="go">Open the main site →</span></a></li>
+    <li><a class="opt" href="identity/"><span class="k">A</span><h2>Identity document</h2><p>An ID card that tilts in 3D and flips, with security print, a real MRZ, case files, a 3D project graph and visa-stamp achievements.</p><span class="meta">Archivo + Martian Mono · security-paper mint and passport navy</span><span class="go">Open option A →</span></a></li>
     <li><a class="opt" href="datasheet/"><span class="k">B</span><h2>Datasheet</h2><p>A semiconductor datasheet for part ATHARVA-3105: a rotatable 3D chip, skills as a 32-pin pinout, metrics as electrical characteristics, experience as revision history.</p><span class="meta">Barlow Condensed + IBM Plex Mono · white sheet, datasheet red</span><span class="go">Open option B →</span></a></li>
     <li><a class="opt" href="diagram/"><span class="k">C</span><h2>Architecture diagram</h2><p>Hand-drawn in the Excalidraw style ArchiGen exports: sketchy boxes, hachure fills, circled numbers, sticky notes and arrows connecting each zone.</p><span class="meta">Kalam + Recursive · whiteboard with Excalidraw pastels</span><span class="go">Open option C →</span></a></li>
     <li><a class="opt" href="station/"><span class="k">D</span><h2>Station board</h2><p>A railway information system: split-flap name board, a live clock on Kanpur time, projects as departures, skills as a metro map, achievements as tickets.</p><span class="meta">Overpass + Overpass Mono · station grey, board black, amber</span><span class="go">Open option D →</span></a></li>

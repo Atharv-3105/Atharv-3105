@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atharva Dwivedi</title>
+<meta name="description" content="Atharva Dwivedi builds the backend of AI systems: ingestion pipelines, retrieval layers and services in Go and Python. Case files, a project graph and models rebuilt from their papers.">
+<meta name="theme-color" content="#E6EBE7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1327" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Atharva Dwivedi">
+<meta property="og:description" content="Backend engineer for AI systems. Go for the services, Python for the models.">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/113771966?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%230F1A2C'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-weight='900' font-size='26' text-anchor='middle' fill='%23D7B46C'%3EAD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("ad-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Atharva Dwivedi",
+  "jobTitle": "Backend Engineer, AI Systems",
+  "email": "mailto:atharvdwivedi8@gmail.com",
+  "url": "https://github.com/Atharv-3105",
+  "address": { "@type": "PostalAddress", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Dr. A. P. J. Abdul Kalam Technical University" },
+  "worksFor": { "@type": "Organization", "name": "Helionyex Solutions" },
+  "sameAs": ["https://github.com/Atharv-3105", "https://www.linkedin.com/in/atharv3105/", "https://leetcode.com/u/atharvdwivedi8/", "https://www.hackerrank.com/profile/atharvdwivedi8", "https://huggingface.co/Atharva31"],
+  "knowsAbout": ["Go", "Python", "Retrieval-augmented generation", "Distributed systems", "PyTorch", "LangGraph", "FastAPI"]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#top" aria-label="Atharva Dwivedi, back to top">
+      <span class="brand__mark" aria-hidden="true">AD</span>
+      <span class="brand__id">ATHARV-3105</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#service">Record</a>
+      <a href="#record">Files</a>
+      <a href="#network">Graph</a>
+      <a href="#lab">Lab</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO: the data page ============ -->
+  <section class="hero" id="top" aria-labelledby="holder-name">
+    <canvas class="hero__guilloche" id="hero-guilloche" aria-hidden="true"></canvas>
+
+    <div class="wrap hero__grid">
+      <div class="hero__id">
+        <p class="doc-line">
+          <span>Digital identity document</span>
+          <span>Doc. no. 113771966</span>
+          <span>Issued 17.09.2022</span>
+        </p>
+
+        <h1 class="name" id="holder-name">
+          <span class="name__row"><span class="lbl">1. Given name</span><span class="name__text">Atharva</span></span>
+          <span class="name__row"><span class="lbl">2. Surname</span><span class="name__text">Dwivedi</span></span>
+        </h1>
+
+        <p class="lede">Backend engineer for AI systems. I build the parts that sit behind the model: ingestion pipelines, retrieval layers and services that have to stay up and stay fast. Go on the systems side, Python on the ML side.</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#record">Open case files</a>
+          <a class="btn" href="https://github.com/Atharv-3105" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+          <button class="btn" type="button" data-copy="atharvdwivedi8@gmail.com">Copy email</button>
+        </div>
+      </div>
+
+      <div class="hero__card">
+        <figure class="card-stage" id="card-stage">
+          <div class="card-float">
+            <div class="card-tilt" id="card-tilt">
+              <div class="card" id="id-card">
+
+                <!-- front -->
+                <div class="card__face card__front">
+                  <div class="card__pattern" aria-hidden="true"></div>
+                  <header class="cf__head">
+                    <span class="cf__title">Engineer identity card</span>
+                    <span class="cf__sub">Backend · AI systems</span>
+                  </header>
+                  <div class="cf__photo">
+                    <img src="../../assets/avatar.jpg" alt="Atharva's avatar, a chrome robot figure" width="400" height="400" decoding="async">
+                  </div>
+                  <dl class="cf__fields">
+                    <div><dt>1. Surname</dt><dd>Dwivedi</dd></div>
+                    <div><dt>2. Given name</dt><dd>Atharva</dd></div>
+                    <div class="cf__wide"><dt>3. Occupation</dt><dd>Backend engineer · AI systems</dd></div>
+                    <div><dt>4a. Issued</dt><dd>17.09.2022</dd></div>
+                    <div><dt>4b. Doc. no.</dt><dd>113771966</dd></div>
+                    <div class="cf__wide"><dt>5. Languages</dt><dd>Go · Python</dd></div>
+                  </dl>
+                  <div class="cf__side" aria-hidden="true">
+                    <span class="cf__chip"></span>
+                    <span class="cf__ghost"><img src="../../assets/avatar.jpg" alt="" width="400" height="400" decoding="async"></span>
+                  </div>
+                  <pre class="cf__mrz" aria-hidden="true">I&lt;GIT1137719661ATHARV&lt;3105&lt;&lt;&lt;&lt;
+2209173&lt;ENGINEER&lt;GO&lt;PY&lt;RAG&lt;&lt;&lt;6
+DWIVEDI&lt;&lt;ATHARVA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</pre>
+                  <div class="card__holo" aria-hidden="true"></div>
+                  <div class="card__glare" aria-hidden="true"></div>
+                </div>
+
+                <!-- back -->
+                <div class="card__face card__back">
+                  <div class="cb__stripe" aria-hidden="true"></div>
+                  <div class="cb__body">
+                    <p class="cb__sig"><span class="cb__sig-label">Remarks</span><span class="cb__sig-text">Gaslighting machines.</span></p>
+                    <dl class="cb__skills">
+                      <div><dt>Systems</dt><dd>Go · Gin · gRPC · WebSockets · SSE</dd></div>
+                      <div><dt>AI / ML</dt><dd>PyTorch · LangGraph · RAG · Transformers</dd></div>
+                      <div><dt>Data</dt><dd>Postgres · Redis · MongoDB · SQLite · FAISS</dd></div>
+                      <div><dt>Cloud</dt><dd>Docker · AWS · GCP · CI/CD</dd></div>
+                    </dl>
+                    <div class="cb__side">
+                      <ul class="cb__contact">
+                        <li>github.com/Atharv-3105</li>
+                        <li>linkedin.com/in/atharv3105</li>
+                        <li>atharvdwivedi8@gmail.com</li>
+                      </ul>
+                      <div class="cb__barcode">
+                        <svg class="cb__bars" viewBox="0 0 207 40" preserveAspectRatio="none" aria-hidden="true"><rect x="0" width="1" height="40"/><rect x="4" width="1" height="40"/><rect x="6" width="3" height="40"/><rect x="10" width="3" height="40"/><rect x="14" width="1" height="40"/><rect x="16" width="3" height="40"/><rect x="20" width="1" height="40"/><rect x="22" width="1" height="40"/><rect x="26" width="1" height="40"/><rect x="28" width="3" height="40"/><rect x="32" width="1" height="40"/><rect x="34" width="1" height="40"/><rect x="36" width="3" height="40"/><rect x="40" width="3" height="40"/><rect x="46" width="1" height="40"/><rect x="48" width="3" height="40"/><rect x="52" width="1" height="40"/><rect x="54" width="1" height="40"/><rect x="58" width="3" height="40"/><rect x="62" width="1" height="40"/><rect x="64" width="3" height="40"/><rect x="68" width="1" height="40"/><rect x="70" width="1" height="40"/><rect x="74" width="1" height="40"/><rect x="76" width="3" height="40"/><rect x="80" width="3" height="40"/><rect x="84" width="1" height="40"/><rect x="86" width="1" height="40"/><rect x="88" width="3" height="40"/><rect x="94" width="1" height="40"/><rect x="96" width="1" height="40"/><rect x="100" width="3" height="40"/><rect x="104" width="1" height="40"/><rect x="106" width="1" height="40"/><rect x="108" width="3" height="40"/><rect x="112" width="1" height="40"/><rect x="116" width="1" height="40"/><rect x="118" width="1" height="40"/><rect x="120" width="3" height="40"/><rect x="124" width="3" height="40"/><rect x="128" width="3" height="40"/><rect x="132" width="3" height="40"/><rect x="138" width="1" height="40"/><rect x="140" width="1" height="40"/><rect x="142" width="1" height="40"/><rect x="144" width="3" height="40"/><rect x="148" width="1" height="40"/><rect x="152" width="1" height="40"/><rect x="154" width="1" height="40"/><rect x="156" width="3" height="40"/><rect x="160" width="1" height="40"/><rect x="162" width="1" height="40"/><rect x="166" width="3" height="40"/><rect x="170" width="3" height="40"/><rect x="174" width="1" height="40"/><rect x="176" width="3" height="40"/><rect x="180" width="1" height="40"/><rect x="184" width="3" height="40"/><rect x="188" width="1" height="40"/><rect x="190" width="1" height="40"/><rect x="192" width="1" height="40"/><rect x="196" width="1" height="40"/><rect x="198" width="3" height="40"/><rect x="202" width="3" height="40"/><rect x="206" width="1" height="40"/></svg>
+                        <span class="cb__barcode-text">*ATHARV-3105*</span>
+                      </div>
+                    </div>
+                    <p class="cb__fine">This card remains the property of its holder. If found, please open a pull request.</p>
+                  </div>
+                  <div class="card__glare" aria-hidden="true"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <figcaption class="card-hint">
+            <span id="card-hint-text">Move your pointer over the card to tilt it</span>
+            <button class="link-btn" id="flip-btn" type="button" aria-controls="id-card" aria-pressed="false">Flip card</button>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <dl class="fields">
+        <div class="field"><dt>3. Occupation</dt><dd>Backend engineer, AI systems</dd></div>
+        <div class="field"><dt>4. Current post</dt><dd>Software Developer Intern, Helionyex Solutions</dd></div>
+        <div class="field"><dt>5. Education</dt><dd>B.Tech, AI &amp; ML · AKTU, <span class="nowrap">2022–2026</span></dd></div>
+        <div class="field"><dt>6. Languages</dt><dd>Go, Python, SQL, C++</dd></div>
+        <div class="field"><dt>7. Current focus</dt><dd>RAG infrastructure, repository intelligence</dd></div>
+        <div class="field"><dt>8. Based in</dt><dd>Kanpur, Uttar Pradesh. Open to relocation or remote</dd></div>
+        <div class="field"><dt>9. On GitHub since</dt><dd>17 Sep 2022 · 39 public repositories</dd></div>
+        <div class="field"><dt>10. Remarks</dt><dd>“Gaslighting machines.”</dd></div>
+      </dl>
+    </div>
+
+    <div class="mrz-band">
+      <div class="wrap mrz-band__inner">
+        <div class="mrz-scroll">
+          <pre class="mrz" aria-label="Machine-readable zone">I&lt;GIT1137719661ATHARV&lt;3105&lt;&lt;&lt;&lt;
+2209173&lt;ENGINEER&lt;GO&lt;PY&lt;RAG&lt;&lt;&lt;6
+DWIVEDI&lt;&lt;ATHARVA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</pre>
+        </div>
+        <p class="mrz-note">Machine-readable zone in the three-line TD1 layout used on ID cards. Line 1 carries document number 113771966 with check digit <b>1</b>. Line 2 carries the issue date 22-09-17 with check digit <b>3</b> and a composite check digit <b>6</b>. All three use the ICAO 9303 7-3-1 weighting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOLDER STATEMENT ============ -->
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Holder statement</p>
+          <h2 id="about-title">What I work on</h2>
+        </div>
+      </header>
+
+      <div class="about__grid">
+        <div class="about__text">
+          <p>I like building the backend of AI systems more than the AI itself. Most of what I build sits where Go meets Python: a Go service handling ingestion, concurrency and the API, next to a Python service doing embeddings, retrieval and model calls.</p>
+          <p>Right now I'm thinking about repository intelligence, RAG infrastructure, and what it takes to run these pipelines reliably at some scale instead of getting them to work once in a notebook.</p>
+          <p>I also read papers and rebuild the ideas myself. Writing RoPE or a KV cache by hand is usually the fastest way for me to understand how something works.</p>
+          <p class="about__learning"><span class="lbl">Currently learning</span> Distributed systems, high-performance Go, AI infrastructure, search and retrieval.</p>
+        </div>
+
+        <div class="marks">
+          <p class="marks__title lbl">Distinguishing marks <span>patterns that repeat across my repositories</span></p>
+          <dl>
+            <div class="mark">
+              <dt>Go for the service, Python for the model</dt>
+              <dd>KnowYourRepo, SmartFile Manager, Semantic-Duel and Social Music Graph all split the same way. A Go process owns concurrency, I/O and the API; a Python service owns embeddings and inference.</dd>
+            </div>
+            <div class="mark">
+              <dt>Let code check what a model can't be trusted with</dt>
+              <dd>ArchiGen hands layout to Graphviz and validation to a deterministic checker. JobBot diffs every résumé edit in code. The financial analyzer computes ratios with plain functions instead of asking the LLM.</dd>
+            </div>
+            <div class="mark">
+              <dt>Degrade instead of crashing</dt>
+              <dd>Validated multi-provider failover in JobBot and KnowYourRepo, a polling fallback when fsnotify misses events, a repair loop when a diagram fails validation.</dd>
+            </div>
+            <div class="mark">
+              <dt>Measure it, then publish the result</dt>
+              <dd>Prometheus and Grafana on KnowYourRepo, a metrics endpoint on Semantic-Duel, and a JobBot test audit that documents a 0/12 first run next to the 12/12 fix.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICE RECORD ============ -->
+  <section class="section" id="service" aria-labelledby="service-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Service record</p>
+          <h2 id="service-title">Experience and education</h2>
+        </div>
+      </header>
+
+      <div class="service__grid">
+        <ol class="record" aria-label="Experience and education, newest first">
+          <li class="record__item">
+            <p class="record__when">Jun 2026 – present</p>
+            <div class="record__body">
+              <h3 class="record__role">Software Developer Intern</h3>
+              <p class="record__org">Helionyex Solutions · Remote</p>
+              <p class="record__desc">Building core modules of CDRPS, a cross-platform desktop system that receives, checks and stores climate data from weather stations: authentication and RBAC, station management, monitoring and quality-control workflows.</p>
+              <div class="readings">
+                <div class="reading"><span class="reading__val">15+</span><span class="reading__lbl">application modules</span></div>
+                <div class="reading"><span class="reading__val">10+</span><span class="reading__lbl">WMO-compliant quality-control rules</span></div>
+                <div class="reading"><span class="reading__val">20+</span><span class="reading__lbl">secure IPC interfaces</span></div>
+              </div>
+              <ul class="notes">
+                <li>A real-time validation engine runs range, persistence, step-deviation and consistency checks on each observation and flags anomalous readings before they are stored in PostgreSQL.</li>
+                <li>Designed the backend communication layer: IPC interfaces, database transaction repositories and internal authentication services between the client and the database.</li>
+              </ul>
+              <ul class="chips" aria-label="Stack">
+                <li>Electron</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li>
+              </ul>
+            </div>
+          </li>
+          <li class="record__item">
+            <p class="record__when">2022 – 2026</p>
+            <div class="record__body">
+              <h3 class="record__role">B.Tech, Artificial Intelligence &amp; Machine Learning</h3>
+              <p class="record__org">Dr. A. P. J. Abdul Kalam Technical University, Lucknow</p>
+              <p class="record__desc">Most of the repositories on this page were built alongside the degree, from the from-scratch model work to the Go services.</p>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="skills" aria-labelledby="skills-title">
+          <h3 class="lbl skills__title" id="skills-title">Skills register</h3>
+          <dl>
+            <div><dt>Languages</dt><dd>Go, Python, SQL, C++</dd></div>
+            <div><dt>Backend</dt><dd>Gin, FastAPI, REST, gRPC, WebSockets, Server-Sent Events, microservices, goroutines and channels</dd></div>
+            <div><dt>Data</dt><dd>PostgreSQL, SQLite, MongoDB, Redis for caching, pub/sub and rate limiting</dd></div>
+            <div><dt>LLM apps</dt><dd>RAG, LangGraph, LangChain, LlamaIndex, ChromaDB, FAISS, prompt engineering</dd></div>
+            <div><dt>ML</dt><dd>PyTorch, TensorFlow, scikit-learn, Hugging Face Transformers, LoRA and QLoRA, vLLM</dd></div>
+            <div><dt>Cloud &amp; ops</dt><dd>Docker, AWS (EC2, S3, RDS), GCP, CI/CD, Weights &amp; Biases</dd></div>
+            <div><dt>Foundations</dt><dd>Data structures and algorithms, system design, distributed systems, database design, testing</dd></div>
+            <div><dt>AI dev tools</dt><dd>Claude Code, Cursor, GitHub Copilot, Antigravity</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE FILES ============ -->
+  <section class="section" id="record" aria-labelledby="record-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Record</p>
+          <h2 id="record-title">Case files</h2>
+        </div>
+        <p class="section__intro">Six projects, each with the pipeline it actually runs. Stage names come from the code and READMEs in each repository.</p>
+      </header>
+
+      <!-- KnowYourRepo -->
+      <article class="case" id="kyr" aria-labelledby="kyr-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Sep 2026</dd></div>
+            <div><dt>Status</dt><dd>In active development</dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/KnowYourRepo" target="_blank" rel="noopener">Atharv-3105/KnowYourRepo&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>Go</li><li>Gin</li><li>tree-sitter</li><li>Postgres + pgvector</li><li>FastAPI</li><li>React</li><li>Three.js</li><li>Prometheus</li><li>Grafana</li><li>Docker Compose</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="kyr-title">KnowYourRepo</h3>
+          <p class="case__summary">Paste a GitHub URL and get back a call graph, a dependency map, an architecture overview and a chat that answers questions about the code with sources.</p>
+          <ol class="pipeline" aria-label="KnowYourRepo pipeline">
+            <li>Clone<small>go-git</small></li>
+            <li>Parse<small>tree-sitter: Go, Python, JS</small></li>
+            <li>Graph<small>symbols and call edges</small></li>
+            <li>Embed<small>pgvector</small></li>
+            <li>Retrieve<small>lexical + semantic</small></li>
+            <li>Answer<small>agent chat with sources</small></li>
+          </ol>
+          <div class="readings">
+            <div class="reading"><span class="reading__val">3</span><span class="reading__lbl">languages parsed into call graphs</span></div>
+            <div class="reading"><span class="reading__val">5</span><span class="reading__lbl">model providers behind one router</span></div>
+            <div class="reading"><span class="reading__val">6</span><span class="reading__lbl">services in docker compose</span></div>
+          </div>
+          <ul class="notes">
+            <li>Go API on Gin and pgx, with a bounded worker pool for ingestion jobs and per-client rate limiting.</li>
+            <li>FastAPI sidecar routes embedding and chat calls to Groq, Gemini, Voyage, Ollama or any OpenAI-compatible endpoint.</li>
+            <li>React frontend with overview, architecture and symbol views plus a 2D and 3D call graph. Prometheus metrics feed a provisioned Grafana dashboard.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- JobBot -->
+      <article class="case" id="jobbot" aria-labelledby="jobbot-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Sep 2026</dd></div>
+            <div><dt>Status</dt><dd>About 80% done, still being built</dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/JobBot" target="_blank" rel="noopener">Atharv-3105/JobBot&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>Python</li><li>LangGraph</li><li>python-telegram-bot</li><li>SQLAlchemy</li><li>SQLite</li><li>Playwright</li><li>pdflatex</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="jobbot-title">JobBot</h3>
+          <p class="case__summary">A Telegram bot that crawls job boards, scores each listing against my real profile and tailors my résumé without adding a skill I don't have.</p>
+          <ol class="pipeline" aria-label="JobBot pipeline">
+            <li>Route<small>/search · /score · /tailor</small></li>
+            <li>Crawl<small>8 job boards</small></li>
+            <li>Score<small>rule filter + LLM batch</small></li>
+            <li>Tailor<small>rewrite per section</small></li>
+            <li>Guard<small>skills · numbers · retention · LaTeX</small></li>
+            <li>Compile<small>pdflatex</small></li>
+            <li>Report<small>word-level diff to Telegram</small></li>
+          </ol>
+          <div class="readings">
+            <div class="reading"><span class="reading__val">0/12 → 12/12</span><span class="reading__lbl">adversarial real-LLM test matrix, before and after four fixes</span></div>
+            <div class="reading"><span class="reading__val">0</span><span class="reading__lbl">fabrication leaks in either run</span></div>
+            <div class="reading"><span class="reading__val">31</span><span class="reading__lbl">automated tests</span></div>
+          </div>
+          <ul class="notes">
+            <li>Every rewritten section passes a skill whitelist, a guard against invented numbers, a word-retention check and a LaTeX injection gate. A failing section reverts on its own and the rest keeps its edits.</li>
+            <li>The change summary comes from a deterministic difflib diff. A second, constrained LLM call may only describe what is in that diff.</li>
+            <li>Six free-tier LLM providers with priority failover. The router retries on the next provider when a response fails validation, not only when a request errors.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ArchiGen -->
+      <article class="case" id="archigen" aria-labelledby="archigen-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Jul 2026</dd></div>
+            <div><dt>Status</dt><dd>Live</dd></div>
+            <div><dt>Try it</dt><dd><a href="https://archigenai.vercel.app/" target="_blank" rel="noopener">archigenai.vercel.app&nbsp;↗</a></dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/ArchiGen-AI" target="_blank" rel="noopener">Atharv-3105/ArchiGen-AI&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>Python</li><li>LangGraph</li><li>FastAPI</li><li>NetworkX</li><li>Graphviz</li><li>React</li><li>TypeScript</li><li>Clerk</li><li>Docker</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="archigen-title">ArchiGen AI</h3>
+          <p class="case__summary">Turns a plain-language description of a system into an Excalidraw architecture diagram and an Architecture Decision Record.</p>
+          <ol class="pipeline" aria-label="ArchiGen pipeline">
+            <li>Parse<small>intent and components</small></li>
+            <li>Clarify<small>only when ambiguous</small></li>
+            <li>Design<small>layers and patterns</small></li>
+            <li>Layout<small>NetworkX + Graphviz</small></li>
+            <li>Style</li>
+            <li>Validate<small>bindings, collisions</small></li>
+            <li class="is-loop">Repair<small>up to 3 passes, back to layout</small></li>
+            <li>Annotate<small>callouts + ADR</small></li>
+            <li>Export<small>Excalidraw, PNG, SVG, Mermaid, MD</small></li>
+          </ol>
+          <div class="readings">
+            <div class="reading"><span class="reading__val">~70% → ~99%</span><span class="reading__lbl">render success once the validate and repair loop was added</span></div>
+            <div class="reading"><span class="reading__val">&lt; 8 s</span><span class="reading__lbl">to generate a complex diagram</span></div>
+            <div class="reading"><span class="reading__val">5</span><span class="reading__lbl">export formats</span></div>
+          </div>
+          <ul class="notes">
+            <li>The LLM decides what the boxes are. Graphviz decides where they go, so layouts never overlap.</li>
+            <li>Agent progress streams to the React frontend over Server-Sent Events.</li>
+            <li>A refinement like “add a Redis cache between the API and DB” patches the existing graph instead of regenerating it.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- SmartFile -->
+      <article class="case" id="smartfile" aria-labelledby="smartfile-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Mar 2026</dd></div>
+            <div><dt>Status</dt><dd>Working, fully containerised</dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/SmartFile-Manager" target="_blank" rel="noopener">Atharv-3105/SmartFile-Manager&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>Go</li><li>fsnotify</li><li>Python</li><li>FastAPI</li><li>sentence-transformers</li><li>EasyOCR</li><li>SQLite</li><li>Docker</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="smartfile-title">SmartFile Manager</h3>
+          <p class="case__summary">Local semantic search over your own files. Drop a PDF, image or text file into a folder and find it later by what it says instead of what it's called.</p>
+          <ol class="pipeline" aria-label="SmartFile Manager pipeline">
+            <li>Watch<small>fsnotify + polling</small></li>
+            <li>Debounce</li>
+            <li>Worker pool<small>bounded, in Go</small></li>
+            <li>Extract<small>EasyOCR, PDF, text</small></li>
+            <li>Embed<small>MiniLM-L6-v2, 384-d</small></li>
+            <li>Store<small>SQLite, one transaction</small></li>
+            <li>Search<small>cosine top-k</small></li>
+          </ol>
+          <div class="readings">
+            <div class="reading"><span class="reading__val">8</span><span class="reading__lbl">concurrent ingestion workers</span></div>
+            <div class="reading"><span class="reading__val">500+</span><span class="reading__lbl">local documents indexed</span></div>
+            <div class="reading"><span class="reading__val">&lt; 150 ms</span><span class="reading__lbl">semantic search over the index</span></div>
+          </div>
+          <ul class="notes">
+            <li>A polling fallback catches the file events fsnotify misses on Docker bind mounts and Windows.</li>
+            <li>Each file is written in one transaction: the file row, its extracted text and its embedding land together or not at all.</li>
+            <li>The first project of mine that a senior developer reviewed and rated well.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Semantic-Duel -->
+      <article class="case" id="duel" aria-labelledby="duel-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Aug 2026</dd></div>
+            <div><dt>Status</dt><dd>Playable</dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/Semantic-Duel" target="_blank" rel="noopener">Atharv-3105/Semantic-Duel&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>Go</li><li>Gorilla WebSocket</li><li>channels</li><li>React</li><li>TypeScript</li><li>Vite</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="duel-title">Semantic-Duel</h3>
+          <p class="case__summary">A real-time word game for two. A target word appears, both players have 60 seconds to submit related words, and the server scores each one by semantic similarity.</p>
+          <ol class="pipeline" aria-label="Semantic-Duel game loop">
+            <li>Connect<small>WebSocket hub</small></li>
+            <li>Match<small>FIFO queue</small></li>
+            <li>Duel<small>60 s room state machine</small></li>
+            <li>Score<small>cosine vs. target</small></li>
+            <li class="is-loop">Result<small>then auto-requeue</small></li>
+          </ol>
+          <div class="readings">
+            <div class="reading"><span class="reading__val">50+</span><span class="reading__lbl">concurrent players</span></div>
+            <div class="reading"><span class="reading__val">~150 ms</span><span class="reading__lbl">state sync across a game session</span></div>
+            <div class="reading"><span class="reading__val">100+</span><span class="reading__lbl">similarity evaluations per match</span></div>
+          </div>
+          <ul class="notes">
+            <li>Server-authoritative: game state and scoring never leave the server, which is the anti-cheat.</li>
+            <li>About 3,000 words are embedded once in Python at 384 dimensions, so the Go server runs with no Python at runtime.</li>
+            <li>Ping/pong heartbeats, a 1-second submission cooldown, Unicode-normalised input and message passing over channels instead of shared locks.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Fly Brain -->
+      <article class="case" id="flybrain" aria-labelledby="flybrain-title">
+        <aside class="case__meta">
+          <dl>
+            <div><dt>Last push</dt><dd>Sep 2026</dd></div>
+            <div><dt>Status</dt><dd>Experiment</dd></div>
+            <div><dt>Repository</dt><dd><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fly_Brain" target="_blank" rel="noopener">From_Scratch/Fly_Brain&nbsp;↗</a></dd></div>
+          </dl>
+          <ul class="chips" aria-label="Stack">
+            <li>PyTorch</li><li>NumPy</li><li>SciPy sparse</li><li>pandas</li><li>neuPrint</li>
+          </ul>
+        </aside>
+        <div class="case__body">
+          <h3 class="case__title" id="flybrain-title">Fly Brain</h3>
+          <p class="case__summary">A spiking neural network wired from a real fruit-fly connectome and trained to play Flappy Bird.</p>
+          <ol class="pipeline" aria-label="Fly Brain pipeline">
+            <li>Fetch<small>neuPrint, male CNS v1.0</small></li>
+            <li>Subgraph<small>visual → one hop → descending</small></li>
+            <li>Encode<small>game state → input current</small></li>
+            <li>Simulate<small>LIF neurons, surrogate spikes</small></li>
+            <li>Decode<small>spike counts → flap</small></li>
+            <li>Learn<small>REINFORCE</small></li>
+          </ol>
+          <p class="equation" aria-label="tau times dV over dt equals minus V minus V rest, plus I of t">τ · dV/dt = −(V − V<sub>rest</sub>) + I(t)</p>
+          <ul class="notes">
+            <li>Leaky integrate-and-fire neurons. Synapse signs follow each presynaptic neuron's neurotransmitter.</li>
+            <li>The connectome weights are registered as buffers, so the optimiser cannot touch them. Only the encoder into the visual neurons and the decoder out of the descending neurons learn.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ GRAPH ============ -->
+  <section class="section network" id="network" aria-labelledby="network-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Network</p>
+          <h2 id="network-title">Projects and what they share</h2>
+        </div>
+        <p class="section__intro">My projects and internship work, linked to the tools they are built on. Drag to rotate, select a node to trace its links, or step through the list beside it with a keyboard.</p>
+      </header>
+
+      <div class="network__grid">
+        <div class="graph" id="graph">
+          <canvas id="graph-canvas" aria-label="3D graph of projects and technologies. The panel beside it lists the same connections as text." role="img"></canvas>
+          <ul class="graph__legend" aria-hidden="true">
+            <li><span class="key key--project"></span>Project</li>
+            <li><span class="key key--tech"></span>Tool or concept</li>
+            <li><span class="key key--lang"></span>Language</li>
+          </ul>
+        </div>
+
+        <aside class="graph-panel" id="graph-panel" aria-live="polite">
+          <p class="lbl" id="gp-kind">Language</p>
+          <h3 class="graph-panel__title" id="gp-title">Go</h3>
+          <p class="graph-panel__text" id="gp-text">The long-running side: services, worker pools, WebSocket hubs and file watchers.</p>
+          <p class="lbl" id="gp-links-label">Used in</p>
+          <ul class="graph-panel__links" id="gp-links">
+            <li><button type="button" data-node="kyr">KnowYourRepo</button></li>
+            <li><button type="button" data-node="smartfile">SmartFile Manager</button></li>
+            <li><button type="button" data-node="duel">Semantic-Duel</button></li>
+            <li><button type="button" data-node="music">Social Music Graph</button></li>
+          </ul>
+          <a class="graph-panel__open" id="gp-open" href="#record" hidden>Open case file</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LAB ============ -->
+  <section class="section lab" id="lab" aria-labelledby="lab-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Lab notebook</p>
+          <h2 id="lab-title">Rebuilt from the paper</h2>
+        </div>
+        <div>
+          <blockquote class="quote">
+            <p>“What I cannot create, I do not understand.”</p>
+            <footer>Richard Feynman, the line at the top of my From_Scratch repository</footer>
+          </blockquote>
+        </div>
+      </header>
+
+      <p class="lab__intro">Alongside the systems work I rebuild models from their papers in PyTorch and NumPy, one component at a time, checking tensor shapes as I go.</p>
+
+      <ul class="blocks" aria-label="Architectures and techniques implemented by hand">
+        <li>BPE</li><li>RoPE</li><li>RMSNorm</li><li>SwiGLU</li><li>MHA</li><li>GQA</li><li>MLA</li><li>QK-norm</li><li>KV cache</li><li>Mixture of Experts</li><li>LoRA</li><li>DPO</li><li>U-Net</li><li>Vector quantisation</li><li>Straight-through estimator</li><li>PPO</li><li>TD3</li><li>DDPG</li><li>Dueling heads</li><li>Surrogate gradients</li><li>LIF neurons</li>
+      </ul>
+
+      <div class="lab__grid">
+        <section class="lab__group" aria-labelledby="lg-lm">
+          <h3 class="lbl" id="lg-lm">Language models</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LLaMA 2</a><span>RMSNorm, RoPE, grouped-query attention, SwiGLU, KV cache</span></li>
+            <li><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">Gemma 3 270M</a><span>GELU-gated feed-forward, QK-norm, Gemma-style RMSNorm</span></li>
+            <li><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">Qwen 3 0.6B</a><span>Architecture notebook with tokenizer and weights</span></li>
+            <li><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">Small-LM</a><span>Trained from scratch with its own BPE tokenizer, runs logged to W&amp;B</span></li>
+            <li><a href="https://github.com/Atharv-3105/Small_GPT" target="_blank" rel="noopener">Small GPT</a><span>A small GPT-style decoder</span></li>
+            <li><a href="https://github.com/Atharv-3105/BytePairEncoding_Implementation_From_Scratch" target="_blank" rel="noopener">Byte pair encoding</a><span>Tokenizer from scratch</span></li>
+          </ul>
+        </section>
+
+        <section class="lab__group" aria-labelledby="lg-attn">
+          <h3 class="lbl" id="lg-attn">Attention and transformers</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Attention" target="_blank" rel="noopener">Attention variants</a><span>Vanilla, multi-head self, grouped-query, multi-head latent and cross attention</span></li>
+            <li><a href="https://github.com/Atharv-3105/Transformer_Implementation" target="_blank" rel="noopener">Transformer</a><span>The base architecture, built up from its blocks</span></li>
+            <li><a href="https://github.com/Atharv-3105/Vision_Transformer_Implementation" target="_blank" rel="noopener">Vision Transformer</a><span>Patch embeddings into a transformer encoder</span></li>
+            <li><a href="https://github.com/Atharv-3105/LSTM_From_Scratch" target="_blank" rel="noopener">LSTM</a><span>Gates and cell state by hand</span></li>
+          </ul>
+        </section>
+
+        <section class="lab__group" aria-labelledby="lg-gen">
+          <h3 class="lbl" id="lg-gen">Generative models</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/VQ-VAE" target="_blank" rel="noopener">VQ-VAE</a><span>Learnable codebook on CIFAR-10, reconstruction loss about 0.061 after 20 epochs</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">DDPM and VAE</a><span>Diffusion and variational autoencoder notebooks</span></li>
+            <li><a href="https://github.com/Atharv-3105/Generative_Adversarial_Networks" target="_blank" rel="noopener">GANs</a><span>Generator and discriminator training</span></li>
+            <li><a href="https://github.com/Atharv-3105/Image_Generation_Using_VAE-GAN" target="_blank" rel="noopener">VAE-GAN</a><span>Image generation combining both</span></li>
+          </ul>
+        </section>
+
+        <section class="lab__group" aria-labelledby="lg-rl">
+          <h3 class="lbl" id="lg-rl">Reinforcement learning</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">DQN</a><span>Taxi-v3</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">Dueling DQN</a><span>Flappy Bird, separate value and advantage streams</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">A3C</a><span>CartPole-v1, asynchronous actor-learners on a shared model</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">Soft Actor-Critic</a><span>Pendulum, off-policy maximum-entropy RL</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">PPO</a><span>Proximal policy optimisation with a clipped objective</span></li>
+            <li><a href="https://github.com/Atharv-3105/RL-Project-on-Stock-Data" target="_blank" rel="noopener">RL on stock data</a><span>Agents trading on historical prices</span></li>
+          </ul>
+        </section>
+
+        <section class="lab__group" aria-labelledby="lg-ft">
+          <h3 class="lbl" id="lg-ft">Fine-tuning</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/Gemma-3-270M-Fine-Tuned" target="_blank" rel="noopener">Gemma 3 270M + LoRA</a><span>PEFT on a quotes dataset, eval loss 1.894 after 3 epochs</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fine-Tuning" target="_blank" rel="noopener">OPT-125M + LoRA</a><span>Meta's OPT-125M adapted with low-rank adapters</span></li>
+            <li><a href="https://huggingface.co/Atharva31" target="_blank" rel="noopener">Hugging Face Hub</a><span>Open datasets and models published as Atharva31</span></li>
+          </ul>
+        </section>
+
+        <section class="lab__group" aria-labelledby="lg-found">
+          <h3 class="lbl" id="lg-found">Foundations and practice</h3>
+          <ul>
+            <li><a href="https://github.com/Atharv-3105/ML-Algorithms-From-Scratch" target="_blank" rel="noopener">ML algorithms</a><span>Classic algorithms without scikit-learn</span></li>
+            <li><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">Activations and losses</a><span>ReLU, Leaky ReLU, ELU, Swish, sigmoid, tanh and loss functions</span></li>
+            <li><a href="https://github.com/Atharv-3105/TensorTonic-Solutions" target="_blank" rel="noopener">TensorTonic</a><span>ML implementation problems, solved</span></li>
+            <li><a href="https://github.com/Atharv-3105/neetcode-submissions" target="_blank" rel="noopener">NeetCode</a><span>Data structures and algorithms practice</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACHIEVEMENTS ============ -->
+  <section class="section" id="stamps" aria-labelledby="stamps-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Endorsements</p>
+          <h2 id="stamps-title">Achievements</h2>
+        </div>
+        <p class="section__intro">Competitions, certifications, teaching and practice. Stamps with a profile behind them link to it.</p>
+      </header>
+
+      <svg class="stamp-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <filter id="stamp-ink" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="31" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </svg>
+
+      <ul class="stamps">
+        <li><a class="stamp stamp--rect" style="--rot:-4deg" href="https://leetcode.com/u/atharvdwivedi8/" target="_blank" rel="noopener"><span class="stamp__top">LeetCode</span><span class="stamp__big">600+</span><span class="stamp__bottom">DSA problems solved</span></a></li>
+        <li><div class="stamp stamp--round stamp--b" style="--rot:7deg"><span class="stamp__top">Smart India Hackathon</span><span class="stamp__big">2024</span><span class="stamp__bottom">Internal finals</span></div></li>
+        <li><a class="stamp stamp--oval" style="--rot:-6deg" href="https://www.hackerrank.com/profile/atharvdwivedi8" target="_blank" rel="noopener"><span class="stamp__top">HackerRank · Python</span><span class="stamp__big">5 ★</span><span class="stamp__bottom">Proficiency</span></a></li>
+        <li><div class="stamp stamp--rect stamp--b" style="--rot:3deg"><span class="stamp__top">NimbleQ · Trainer</span><span class="stamp__big">150+</span><span class="stamp__bottom">Educators mentored in Python and GenAI</span></div></li>
+        <li><div class="stamp stamp--round" style="--rot:-8deg; --big:0.6"><span class="stamp__top">Redis University</span><span class="stamp__big">Redis for AI</span><span class="stamp__bottom">Certified 2025</span></div></li>
+        <li><a class="stamp stamp--oval stamp--b" style="--rot:4deg" href="https://www.hackerrank.com/profile/atharvdwivedi8" target="_blank" rel="noopener"><span class="stamp__top">HackerRank · C / C++</span><span class="stamp__big">5 ★</span><span class="stamp__bottom">Proficiency</span></a></li>
+        <li><div class="stamp stamp--rect" style="--rot:-2deg"><span class="stamp__top">Smart India Hackathon</span><span class="stamp__big">2025</span><span class="stamp__bottom">Internal finals</span></div></li>
+        <li><a class="stamp stamp--round stamp--b" style="--rot:6deg; --big:0.44" href="https://huggingface.co/Atharva31" target="_blank" rel="noopener"><span class="stamp__top">Hugging Face Hub</span><span class="stamp__big">Atharva31</span><span class="stamp__bottom">Open datasets and models</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ALSO ON RECORD ============ -->
+  <section class="section" id="other" aria-labelledby="other-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <p class="eyebrow">Also on record</p>
+          <h2 id="other-title">Smaller builds</h2>
+        </div>
+      </header>
+
+      <ul class="ledger">
+        <li class="ledger__row">
+          <a class="ledger__name" href="https://github.com/Atharv-3105/Finance_AgenticRAG" target="_blank" rel="noopener">Financial Agentic RAG&nbsp;↗</a>
+          <p class="ledger__desc">Multi-agent financial reasoning: query understanding, retrieval, market data and news, then a risk-aware structured report. Packaged as a Docker app for Hugging Face Spaces.</p>
+          <p class="ledger__stack">Python · FastAPI · Docker</p>
+        </li>
+        <li class="ledger__row">
+          <a class="ledger__name" href="https://github.com/Atharv-3105/financial-document-analyzer" target="_blank" rel="noopener">Financial Document Analyzer&nbsp;↗</a>
+          <p class="ledger__desc">CrewAI agents (verifier, analyst, risk, strategist) over corporate PDFs, with ratios computed by deterministic tools. The API enqueues work to Redis so it never blocks.</p>
+          <p class="ledger__stack">Python · CrewAI · FastAPI · Redis + RQ</p>
+        </li>
+        <li class="ledger__row">
+          <a class="ledger__name" href="https://github.com/Atharv-3105/Local_RAG_WyrdWiki" target="_blank" rel="noopener">Local RAG, Wyrd Wiki&nbsp;↗</a>
+          <p class="ledger__desc">Fully offline question answering over a Notion-exported company wiki, with a confidence score and sources on every answer. No API keys, no per-query cost.</p>
+          <p class="ledger__stack">Ollama · nomic-embed-text · ChromaDB · Gradio</p>
+        </li>
+        <li class="ledger__row">
+          <a class="ledger__name" href="https://github.com/Atharv-3105/Social_Music_Graph" target="_blank" rel="noopener">Social Music Graph&nbsp;↗</a>
+          <p class="ledger__desc">A Go service over a Neo4j graph of users and tracks, with GraphSAGE embeddings trained in a separate Python service.</p>
+          <p class="ledger__stack">Go · Gin · Neo4j · PyTorch Geometric</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact__grid">
+      <div>
+        <p class="eyebrow">Verification</p>
+        <h2 id="contact-title">Get in touch</h2>
+        <p class="contact__text">I'm open to backend and AI engineering roles. I'm based in Kanpur, Uttar Pradesh, and happy to relocate or work remotely. Email is the fastest way to reach me.</p>
+      </div>
+      <dl class="contact__list">
+        <div>
+          <dt>Email</dt>
+          <dd>
+            <a href="mailto:atharvdwivedi8@gmail.com">atharvdwivedi8@gmail.com</a>
+            <button class="link-btn" type="button" data-copy="atharvdwivedi8@gmail.com">Copy</button>
+          </dd>
+        </div>
+        <div>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/Atharv-3105" target="_blank" rel="noopener">github.com/Atharv-3105&nbsp;↗</a></dd>
+        </div>
+        <div>
+          <dt>LinkedIn</dt>
+          <dd><a href="https://www.linkedin.com/in/atharv3105/" target="_blank" rel="noopener">linkedin.com/in/atharv3105&nbsp;↗</a></dd>
+        </div>
+        <div>
+          <dt>LeetCode</dt>
+          <dd><a href="https://leetcode.com/u/atharvdwivedi8/" target="_blank" rel="noopener">leetcode.com/u/atharvdwivedi8&nbsp;↗</a></dd>
+        </div>
+        <div>
+          <dt>HackerRank</dt>
+          <dd><a href="https://www.hackerrank.com/profile/atharvdwivedi8" target="_blank" rel="noopener">hackerrank.com/atharvdwivedi8&nbsp;↗</a></dd>
+        </div>
+        <div>
+          <dt>Hugging Face</dt>
+          <dd><a href="https://huggingface.co/Atharva31" target="_blank" rel="noopener">huggingface.co/Atharva31&nbsp;↗</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="microtext" aria-hidden="true">ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·ATHARVADWIVEDI·BACKEND·AISYSTEMS·GO·PYTHON·</p>
+  <div class="wrap footer__inner">
+    <p>© 2026 Atharva Dwivedi</p>
+    <p>Set in Archivo and Martian Mono. The microtext line above is real, zoom in.</p>
+  </div>
+</footer>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
