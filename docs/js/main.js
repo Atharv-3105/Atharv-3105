@@ -169,7 +169,7 @@
       { id: "O", name: "Ops line", c: "var(--l-o)", stations: ["Docker", "AWS", "GCP", "CI/CD", "W&B", "Prometheus"] }
     ];
     var PROJ = [
-      { name: "Fly Brain", on: ["M"] },
+      { name: "From_Scratch", on: ["M"] },
       { name: "JobBot", on: ["L", "D"] },
       { name: "ArchiGen AI", on: ["B", "L", "O"] },
       { name: "KnowYourRepo", on: ["B", "L", "D", "O"] },
