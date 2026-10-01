@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atharva Dwivedi · Trace</title>
+<meta name="description" content="Atharva Dwivedi: AI engineer who trains models and builds the backend systems that serve them. Deep learning, LLM systems, Go and FastAPI services.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2313171D'/%3E%3Crect x='5' y='8' width='22' height='3.4' rx='1.7' fill='%23e06a3a'/%3E%3Crect x='9' y='14.3' width='12' height='3.4' rx='1.7' fill='%239480ea'/%3E%3Crect x='14' y='20.6' width='11' height='3.4' rx='1.7' fill='%231f9f72'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+<script>
+  try { var t = localStorage.getItem("trace-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+<style>
+:root {
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --bg: #F6F5F1; --panel: #FFFFFF; --panel-2: #EFEEE8;
+  --ink: #15181D; --ink-2: #565C66; --ink-3: #8A8F98; --rule: #E0DED6;
+  --sv: #d9572a; --da: #14966a; --mo: #5a45c0; --root: #6B717B;
+  --ok: #14966a;
+  --link: #B4441B;
+  --shadow: 0 1px 0 rgba(20, 24, 29, .04), 0 12px 30px -18px rgba(20, 24, 29, .25);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1014; --panel: #13171D; --panel-2: #1A1F27;
+    --ink: #E8EAED; --ink-2: #A2A8B2; --ink-3: #6F7682; --rule: #252B34;
+    --sv: #e06a3a; --da: #1f9f72; --mo: #9480ea; --root: #8A919C;
+    --ok: #2BC28A; --link: #F08A5E;
+    --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -22px rgba(0, 0, 0, .8);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1014; --panel: #13171D; --panel-2: #1A1F27;
+  --ink: #E8EAED; --ink-2: #A2A8B2; --ink-3: #6F7682; --rule: #252B34;
+  --sv: #e06a3a; --da: #1f9f72; --mo: #9480ea; --root: #8A919C;
+  --ok: #2BC28A; --link: #F08A5E;
+  --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -22px rgba(0, 0, 0, .8);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--sv); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--mono); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sv { --c: var(--sv); } .da { --c: var(--da); } .mo { --c: var(--mo); } .rt { --c: var(--root); }
+
+/* top bar */
+.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.top__in { display: flex; align-items: center; gap: 16px; height: 56px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; letter-spacing: -0.01em; }
+.brand svg { flex: 0 0 auto; }
+.nav { margin-left: auto; display: flex; gap: 2px; }
+.nav a { font-family: var(--mono); font-size: 0.76rem; color: var(--ink-2); text-decoration: none; padding: 6px 9px; border-radius: 6px; white-space: nowrap; }
+.nav a:hover { color: var(--ink); background: var(--panel-2); }
+.theme-btn { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border-radius: 8px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); cursor: pointer; flex: 0 0 auto; }
+
+/* hero */
+.hero { padding: 64px 0 40px; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+.status { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 0.76rem; color: var(--ink-2); border: 1px solid var(--rule); background: var(--panel); border-radius: 999px; padding: 5px 12px 5px 10px; }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); animation: pulse 2.4s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+h1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); line-height: 0.98; letter-spacing: -0.035em; margin: 22px 0 18px; font-weight: 650; }
+.lede { font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.35; letter-spacing: -0.01em; margin: 0 0 18px; max-width: 30ch; }
+.lede em { font-style: italic; color: var(--mo); }
+.lede b { font-weight: 600; color: var(--sv); }
+.hero p.body { color: var(--ink-2); margin: 0 0 22px; max-width: 52ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; }
+.meta li { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 6px; padding: 4px 8px; background: var(--panel); }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: 9px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); font: 600 0.95rem var(--font); text-decoration: none; cursor: pointer; }
+.btn:hover { border-color: var(--ink-3); text-decoration: none; }
+.btn--fill { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn--fill:hover { border-color: var(--ink); opacity: .9; }
+
+/* trace panel */
+.trace { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
+.trace__hd { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 12px 16px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 0.74rem; color: var(--ink-2); }
+.trace__hd b { color: var(--ink); font-weight: 600; }
+.trace__hd .ok { color: var(--ok); font-weight: 600; }
+.trace__hd .sp { margin-left: auto; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 10px 16px; border-bottom: 1px solid var(--rule); font-size: 0.8rem; color: var(--ink-2); }
+.keys span { display: inline-flex; align-items: center; gap: 6px; }
+.keys i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.ruler { display: grid; grid-template-columns: var(--namecol) minmax(0, 1fr); padding: 0 16px; height: 26px; align-items: end; border-bottom: 1px solid var(--rule); }
+.ruler div { position: relative; height: 100%; }
+.ruler div span { position: absolute; white-space: nowrap; bottom: 5px; transform: translateX(-50%); font-family: var(--mono); font-size: 0.66rem; color: var(--ink-3); }
+.ruler div span:first-child { transform: none; }
+.ruler div span:last-child { transform: translateX(-100%); }
+.ruler > i { display: block; }
+.spans { list-style: none; margin: 0; padding: 6px 0; --namecol: 230px; }
+.trace { --namecol: 230px; }
+.span a { display: grid; grid-template-columns: var(--namecol) minmax(0, 1fr); align-items: center; min-height: 38px; padding: 0 16px; color: var(--ink); text-decoration: none; position: relative; }
+.span a:hover, .span a:focus-visible, .span a.on { background: var(--panel-2); }
+.span .nm { display: flex; align-items: center; gap: 8px; min-width: 0; padding-right: 8px; padding-left: calc(var(--d, 0) * 16px); font-family: var(--mono); font-size: 0.78rem; }
+.span .nm::before { content: ""; flex: 0 0 auto; width: 3px; height: 16px; border-radius: 2px; background: var(--c); }
+.span .nm span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.span .nm small { color: var(--ink-3); font-size: 0.7rem; flex: 0 0 auto; }
+.lane { position: relative; height: 38px; background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px); background-size: 25% 100%; }
+.bar { position: absolute; top: 11px; height: 16px; left: var(--x); width: var(--w); border-radius: 4px; background: var(--c); transform-origin: left center; }
+.anim .bar { animation: grow .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i) * 140ms + 150ms); }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.attrs { border-top: 1px solid var(--rule); padding: 12px 16px 14px; font-family: var(--mono); font-size: 0.76rem; min-height: 132px; }
+.attrs h3 { margin: 0 0 8px; font: 600 0.72rem var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+.attrs h3 b { color: var(--c); font-weight: 600; text-transform: none; letter-spacing: 0; }
+.attrs dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 16px; margin: 0; }
+.attrs dt { color: var(--ink-3); }
+.attrs dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.attrs dd .s { color: var(--da); }
+.attrs dd .n { color: var(--sv); }
+
+/* sections */
+section.sec { padding: 72px 0 8px; }
+.sec__hd { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: end; margin-bottom: 26px; }
+.sec__hd h2 { margin: 6px 0 0; font-size: clamp(1.9rem, 3.8vw, 2.7rem); line-height: 1.05; letter-spacing: -0.03em; font-weight: 650; }
+.sec__hd p { grid-column: 1 / -1; margin: 6px 0 0; color: var(--ink-2); max-width: 64ch; }
+.spanid { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.78rem; color: var(--ink-2); }
+.spanid::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.spanid b { color: var(--ink); font-weight: 600; }
+.mini { position: relative; height: 22px; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); overflow: hidden; }
+.mini i { position: absolute; top: 5px; bottom: 5px; left: var(--x); width: var(--w); background: var(--c); border-radius: 3px; }
+.mini span { position: absolute; right: 8px; top: 0; line-height: 20px; font: 500 0.66rem var(--mono); color: var(--ink-3); }
+.mini span.l { right: auto; left: 8px; }
+
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; box-shadow: var(--shadow); }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.about .big { font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.4; letter-spacing: -0.01em; margin: 0 0 16px; }
+.about p { color: var(--ink-2); margin: 0 0 14px; }
+.about p strong { color: var(--ink); font-weight: 600; }
+.labels { padding: 18px; }
+.labels h3 { margin: 0 0 12px; font: 600 0.72rem var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+.labels ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.labels li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; font-size: 0.92rem; padding-bottom: 8px; border-bottom: 1px dashed var(--rule); }
+.labels li:last-child { border-bottom: 0; padding-bottom: 0; }
+.labels li code { font: 500 0.74rem var(--mono); color: var(--ink-3); padding-top: 3px; }
+
+/* logs */
+.logs { overflow: hidden; }
+.logs__bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 0.74rem; color: var(--ink-2); }
+.logs__bar .q { flex: 1; min-width: 0; padding: 5px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.logs ol { list-style: none; margin: 0; padding: 8px 0; font-family: var(--mono); font-size: 0.8rem; }
+.logs li { display: grid; grid-template-columns: 92px 52px 120px minmax(0, 1fr); gap: 12px; padding: 6px 14px; align-items: baseline; }
+.logs li:hover { background: var(--panel-2); }
+.logs time { color: var(--ink-3); }
+.lv { font-weight: 700; font-size: 0.72rem; }
+.lv.info { color: var(--da); } .lv.warn { color: var(--sv); } .lv.debug { color: var(--mo); }
+.logs .src { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.logs .msg { color: var(--ink); }
+.logs .msg span { color: var(--ink-3); }
+
+/* model registry */
+.reg { overflow-x: auto; }
+.reg table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 0.92rem; }
+.reg th { text-align: left; font: 600 0.7rem var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); padding: 12px 16px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.reg td { padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.reg tr:last-child td { border-bottom: 0; }
+.reg tbody tr:hover td { background: var(--panel-2); }
+.reg td:first-child { font-weight: 600; white-space: nowrap; }
+.reg td:first-child::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--mo); margin-right: 10px; vertical-align: 1px; }
+.fam { font: 500 0.74rem var(--mono); color: var(--ink-2); white-space: nowrap; }
+.reg td.note { color: var(--ink-2); }
+.reg td.src { white-space: nowrap; font-size: 0.86rem; }
+.tag { display: inline-block; font: 600 0.68rem var(--mono); padding: 2px 7px; border-radius: 5px; color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); white-space: nowrap; }
+.reg-foot { margin: 12px 0 0; color: var(--ink-2); font-size: 0.9rem; }
+
+/* services */
+.svcs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.svc { padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 14px; }
+.svc__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.svc h3 { margin: 0; font-size: 1.35rem; letter-spacing: -0.02em; font-weight: 650; }
+.svc .st { font: 600 0.68rem var(--mono); color: var(--ink-2); border: 1px solid var(--rule); border-radius: 999px; padding: 3px 9px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.svc .st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+.svc .st.dev::before { background: var(--sv); }
+.ep { font: 500 0.8rem var(--mono); background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; overflow-x: auto; white-space: nowrap; }
+.ep b { color: var(--sv); font-weight: 700; margin-right: 6px; }
+.ep span { color: var(--ink-3); }
+.svc p { margin: 0; color: var(--ink-2); }
+.pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin: 0; padding: 0; list-style: none; }
+.pipe li { display: inline-flex; align-items: center; gap: 4px; }
+.pipe li + li::before { content: "→"; color: var(--ink-3); font-size: 0.8rem; margin-right: 2px; }
+.pipe span { font: 500 0.72rem var(--mono); padding: 4px 8px; border-radius: 6px; color: var(--ink); background: color-mix(in srgb, var(--c) 14%, var(--panel)); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); box-shadow: inset 3px 0 0 var(--c); }
+.slo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; border-top: 1px dashed var(--rule); padding-top: 14px; }
+.slo b { display: block; font-size: 1.25rem; letter-spacing: -0.02em; font-weight: 650; line-height: 1.15; }
+.slo span { display: block; font-size: 0.78rem; color: var(--ink-2); line-height: 1.3; margin-top: 2px; }
+.stack { font: 500 0.74rem var(--mono); color: var(--ink-3); }
+.svc .links { display: flex; gap: 14px; font-weight: 600; font-size: 0.92rem; margin-top: auto; }
+.also { margin: 18px 0 0; color: var(--ink-2); }
+
+/* stack / planes */
+.planes { display: grid; gap: 0; overflow: hidden; }
+.plane { display: grid; grid-template-columns: 200px minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+.plane:last-child { border-bottom: 0; }
+.plane__k { padding: 18px; border-right: 1px solid var(--rule); background: linear-gradient(90deg, color-mix(in srgb, var(--c) 12%, transparent), transparent); }
+.plane__k h3 { margin: 0 0 4px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
+.plane__k h3::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.plane__k p { margin: 0; font-size: 0.84rem; color: var(--ink-2); line-height: 1.4; }
+.plane__v { padding: 16px 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.node { border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
+.node h4 { margin: 0 0 6px; font: 600 0.72rem var(--mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--c); }
+.node p { margin: 0; font-size: 0.9rem; line-height: 1.45; }
+.flow { margin: 14px 0 0; font: 500 0.8rem var(--mono); color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.flow b { color: var(--ink); font-weight: 600; }
+
+/* metrics */
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.metric { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.metric code { font: 500 0.7rem var(--mono); color: var(--ink-3); overflow-wrap: anywhere; }
+.metric b { font-size: 1.85rem; letter-spacing: -0.03em; font-weight: 650; line-height: 1.05; }
+.metric span { font-size: 0.86rem; color: var(--ink-2); line-height: 1.35; }
+
+/* response */
+.resp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; align-items: start; }
+.resp .pitch { font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.4; letter-spacing: -0.01em; margin: 0 0 16px; }
+.resp .side p { color: var(--ink-2); margin: 0 0 18px; }
+.http { overflow: hidden; font-family: var(--mono); font-size: 0.82rem; }
+.http__st { padding: 12px 16px; border-bottom: 1px solid var(--rule); display: flex; gap: 10px; flex-wrap: wrap; }
+.http__st b { color: var(--ok); }
+.http__st span { color: var(--ink-3); }
+.http pre { margin: 0; padding: 14px 16px 16px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; color: var(--ink-2); font: inherit; }
+.http pre .k { color: var(--mo); }
+.http pre a { color: var(--da); }
+.http pre button { font: inherit; color: var(--sv); background: none; border: 1px dashed color-mix(in srgb, var(--sv) 55%, transparent); border-radius: 5px; padding: 0 6px; margin-left: 6px; cursor: pointer; }
+
+footer { margin-top: 80px; border-top: 1px solid var(--rule); padding: 22px 0 40px; font: 500 0.78rem var(--mono); color: var(--ink-3); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+footer a { color: var(--ink-2); }
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--ink); color: var(--bg); font: 600 0.82rem var(--mono); padding: 9px 14px; border-radius: 8px; transition: opacity .2s, transform .2s; z-index: 50; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 1040px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plane__v { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .theme-btn { margin-left: auto; }
+  .about, .resp, .svcs { grid-template-columns: minmax(0, 1fr); }
+  .sec__hd { grid-template-columns: minmax(0, 1fr); }
+  .plane { grid-template-columns: minmax(0, 1fr); }
+  .plane__k { border-right: 0; border-bottom: 1px solid var(--rule); }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  .hero { padding-top: 40px; }
+  .trace, .spans { --namecol: 150px; }
+  .span .nm { font-size: 0.72rem; gap: 6px; padding-left: calc(var(--d, 0) * 8px); }
+  .status .xs { display: none; }
+  .span .nm small { display: none; }
+  .ruler div span:nth-child(2), .ruler div span:nth-child(4) { display: none; }
+  .trace__hd .sp { margin-left: 0; }
+  .logs li { grid-template-columns: 96px minmax(0, 1fr); gap: 2px 10px; }
+  .logs .lv { display: none; }
+  .logs .src { grid-column: 2; grid-row: 1; }
+  .logs .msg { grid-column: 1 / -1; }
+  .plane__v { grid-template-columns: minmax(0, 1fr); }
+  .slo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .labels li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .metric b { font-size: 1.5rem; }
+  .http { font-size: 0.72rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pulse { animation: none; }
+  .anim .bar { animation: none; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top__in">
+    <a class="brand" href="#top"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="4" rx="2" fill="var(--sv)"/><rect x="8" y="14" width="14" height="4" rx="2" fill="var(--mo)"/><rect x="14" y="21" width="13" height="4" rx="2" fill="var(--da)"/></svg>Atharva Dwivedi</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">readme</a><a href="#logs">logs</a><a href="#models">models</a><a href="#services">services</a><a href="#stack">stack</a><a href="#metrics">metrics</a><a href="#contact">contact</a>
+    </nav>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="status"><span class="pulse" aria-hidden="true"></span>service: atharva · status: serving<span class="xs"> · open to roles</span></span>
+        <h1>Atharva Dwivedi</h1>
+        <p class="lede">I train <em>the model</em> and build <b>the backend</b> that serves it.</p>
+        <p class="body">AI engineer working across deep learning and backend systems. I rebuild architectures like LLaMA&nbsp;2, Gemma&nbsp;3 and diffusion models from their papers in PyTorch, then ship LLM products on Go and FastAPI services with retrieval, streaming, rate limits and metrics.</p>
+        <ul class="meta">
+          <li>B.Tech AI &amp; ML · AKTU ’26</li>
+          <li>SDE Intern · Helionyex Solutions</li>
+          <li>Kanpur, IN · relocate / remote</li>
+        </ul>
+        <div class="btns">
+          <a class="btn btn--fill" href="#services">View services ↓</a>
+          <a class="btn" href="https://github.com/Atharv-3105" target="_blank" rel="noopener">GitHub ↗</a>
+          <button class="btn" type="button" data-copy="atharvdwivedi8@gmail.com">Copy email</button>
+        </div>
+      </div>
+
+      <div class="trace anim" id="trace">
+        <div class="trace__hd">
+          <span>trace <b>a7d2·3105</b></span>
+          <span><b>GET</b> /atharva</span>
+          <span class="ok">200 OK</span>
+          <span class="sp">8 spans · 3 planes</span>
+        </div>
+        <div class="keys" aria-label="Legend">
+          <span class="sv"><i></i>serving</span>
+          <span class="mo"><i></i>model</span>
+          <span class="da"><i></i>data</span>
+        </div>
+        <div class="ruler" aria-hidden="true"><i></i><div><span style="left:0">0 ms</span><span style="left:25%">105</span><span style="left:50%">210</span><span style="left:75%">315</span><span style="left:100%">420 ms</span></div></div>
+        <ol class="spans" id="spans"></ol>
+        <div class="attrs" id="attrs" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sv" id="about" data-span="1">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>readme.load</b></span><h2>About me</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+      </div>
+      <div class="about">
+        <div>
+          <p class="big">Most people pick a side: research notebooks or production services. I like the seam between them, where a model has to become an API that answers in milliseconds and doesn’t make things up.</p>
+          <p>On the model side I learn by rebuilding. <strong>From_Scratch</strong> is ten modules of ML, DL and RL written from first principles, from activation functions to attention variants, U-Net, VQ-VAE, DDPM, PPO and a spiking network wired from a fruit-fly connectome. In <strong>Language_Model_Implementations</strong> I rebuilt LLaMA&nbsp;2, Gemma&nbsp;3 and Qwen&nbsp;3 block by block and trained a small language model with its own tokenizer.</p>
+          <p>On the systems side I write the services around those models: a Go API with a bounded worker pool and per-client rate limits, a FastAPI sidecar that routes across five model providers, hybrid retrieval on pgvector, Server-Sent Events for streaming, and Prometheus metrics into Grafana.</p>
+          <p>Right now I’m a software developer intern at <strong>Helionyex Solutions</strong>, building core modules of a climate data system in Electron, React, TypeScript and PostgreSQL.</p>
+        </div>
+        <div class="panel labels">
+          <h3>labels</h3>
+          <ul>
+            <li><code>role</code><span>AI engineer · ML engineer · backend for AI</span></li>
+            <li><code>model.focus</code><span>Transformers, LLMs, generative models, RL</span></li>
+            <li><code>serve.focus</code><span>LLM systems, RAG, Go and FastAPI services</span></li>
+            <li><code>lang</code><span>Python, Go, SQL, C++</span></li>
+            <li><code>teaching</code><span>Python &amp; AI trainer at NimbleQ, 150+ educators</span></li>
+            <li><code>learning</code><span>Distributed systems, inference serving</span></li>
+            <li><code>region</code><span>Kanpur, India · relocation or remote</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec da" id="logs" data-span="2">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>logs.replay</b></span><h2>Timeline</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+        <p>Structured logs, oldest first.</p>
+      </div>
+      <div class="panel logs">
+        <div class="logs__bar"><span class="q">{service="atharva"} | since="2022-09-01" | order=asc</span><span>12 lines</span></div>
+        <ol>
+          <li><time>2022-09</time><span class="lv info">INFO</span><span class="src">aktu</span><span class="msg">B.Tech in AI &amp; ML started <span>· Dr. A. P. J. Abdul Kalam Technical University</span></span></li>
+          <li><time>2022-09-17</time><span class="lv info">INFO</span><span class="src">github</span><span class="msg">account created <span>· 39 public repositories since</span></span></li>
+          <li><time>2024</time><span class="lv info">INFO</span><span class="src">sih</span><span class="msg">Smart India Hackathon: cleared internal finals</span></li>
+          <li><time>2025</time><span class="lv info">INFO</span><span class="src">sih</span><span class="msg">Smart India Hackathon: cleared internal finals again</span></li>
+          <li><time>2025</time><span class="lv info">INFO</span><span class="src">redis</span><span class="msg">certified: Redis for AI</span></li>
+          <li><time>2026-03</time><span class="lv info">INFO</span><span class="src">smartfile</span><span class="msg">shipped SmartFile Manager <span>· semantic file search, Go + MiniLM</span></span></li>
+          <li><time>2026</time><span class="lv info">INFO</span><span class="src">aktu</span><span class="msg">B.Tech in AI &amp; ML completed</span></li>
+          <li><time>2026-06</time><span class="lv info">INFO</span><span class="src">helionyex</span><span class="msg">joined as software developer intern <span>· 15+ modules, 10+ WMO QC rules, 20+ IPC interfaces</span></span></li>
+          <li><time>2026-07</time><span class="lv info">INFO</span><span class="src">archigen</span><span class="msg">ArchiGen AI live <span>· archigenai.vercel.app</span></span></li>
+          <li><time>2026-08</time><span class="lv info">INFO</span><span class="src">semantic-duel</span><span class="msg">Semantic-Duel playable <span>· Go WebSockets, cosine scoring</span></span></li>
+          <li><time>2026-09</time><span class="lv debug">DEBUG</span><span class="src">from_scratch</span><span class="msg">still training <span>· 10 modules, 50 notebooks and scripts</span></span></li>
+          <li><time>now</time><span class="lv warn">WARN</span><span class="src">inbox</span><span class="msg">accepting offers for AI / ML / backend roles</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mo" id="models" data-span="3">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>model.registry.list</b></span><h2>Model registry</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+        <p>Every model here I implemented myself, in PyTorch or NumPy, from the paper. No <code class="mono">from_pretrained</code> for the architecture.</p>
+      </div>
+      <div class="panel reg">
+        <table>
+          <thead><tr><th scope="col">Model</th><th scope="col">Family</th><th scope="col">What I built</th><th scope="col">Stage</th><th scope="col">Source</th></tr></thead>
+          <tbody>
+            <tr><td>LLaMA 2</td><td class="fam">decoder LLM</td><td class="note">RoPE, RMSNorm, SwiGLU, grouped-query attention, KV cache</td><td><span class="tag mo">rebuilt</span></td><td class="src"><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM_Implementations ↗</a></td></tr>
+            <tr><td>Gemma 3 270M</td><td class="fam">decoder LLM</td><td class="note">Rebuilt, then LoRA fine-tuned on quotes. Eval loss 1.915 → 1.894 over 3 epochs</td><td><span class="tag mo">rebuilt</span> <span class="tag da">fine-tuned</span></td><td class="src"><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM_Implementations ↗</a></td></tr>
+            <tr><td>Qwen 3 0.6B</td><td class="fam">decoder LLM</td><td class="note">QK-norm, GQA, weights loaded into my own modules</td><td><span class="tag mo">rebuilt</span></td><td class="src"><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM_Implementations ↗</a></td></tr>
+            <tr><td>Small LM</td><td class="fam">decoder LLM</td><td class="note">Trained from scratch with its own BPE tokenizer</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM_Implementations ↗</a></td></tr>
+            <tr><td>Attention zoo</td><td class="fam">transformer</td><td class="note">Vanilla, multi-head, grouped-query, multi-head latent and cross attention</td><td><span class="tag mo">rebuilt</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Attention" target="_blank" rel="noopener">From_Scratch ↗</a></td></tr>
+            <tr><td>OPT-125M + LoRA</td><td class="fam">decoder LLM</td><td class="note">Low-rank adapters written by hand, then fine-tuned</td><td><span class="tag da">fine-tuned</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">From_Scratch ↗</a></td></tr>
+            <tr><td>VQ-VAE</td><td class="fam">generative</td><td class="note">Learnable codebook with straight-through estimator. CIFAR-10 reconstruction loss ≈ 0.061</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/VQ-VAE" target="_blank" rel="noopener">VQ-VAE ↗</a></td></tr>
+            <tr><td>DDPM · VAE</td><td class="fam">diffusion</td><td class="note">Denoising diffusion and a VAE, side by side</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">From_Scratch ↗</a></td></tr>
+            <tr><td>U-Net</td><td class="fam">CNN</td><td class="note">Encoder–decoder segmentation with skip connections</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">From_Scratch ↗</a></td></tr>
+            <tr><td>PPO</td><td class="fam">RL · policy</td><td class="note">CartPole, LunarLander and ViZDoom’s Defend the Center, episodes recorded</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">RL suite ↗</a></td></tr>
+            <tr><td>DQN · A3C · SAC</td><td class="fam">RL</td><td class="note">DQN on Taxi, Dueling DQN on Flappy Bird, A3C on CartPole, SAC on Pendulum</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">RL suite ↗</a></td></tr>
+            <tr><td>Fly Brain</td><td class="fam">spiking · LIF</td><td class="note">Leaky integrate-and-fire neurons wired from a fruit-fly connectome; learns Flappy Bird with REINFORCE while the wiring stays frozen</td><td><span class="tag sv">trained</span></td><td class="src"><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fly_Brain" target="_blank" rel="noopener">Fly_Brain ↗</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="reg-foot">Also studied and implemented: Transformer, ViT, GANs, TD3, DDPG, Mixture of Experts, DPO.</p>
+    </div>
+  </section>
+
+  <section class="sec sv" id="services" data-span="4">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>services.discover</b></span><h2>Services</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+        <p>Projects where a model meets a backend. Each request path is coloured by plane: <span class="tag sv">serving</span> <span class="tag mo">model</span> <span class="tag da">data</span></p>
+      </div>
+      <div class="svcs">
+        <article class="panel svc">
+          <div class="svc__top"><h3>KnowYourRepo</h3><span class="st dev">in dev</span></div>
+          <div class="ep"><b>POST</b>/repos <span>{ "url": "github.com/…" }</span></div>
+          <p>Paste a GitHub URL, get back a call graph, a dependency map, an architecture overview and a chat that answers questions about the code with sources.</p>
+          <ul class="pipe">
+            <li class="sv"><span>clone · go-git</span></li><li class="sv"><span>parse · tree-sitter</span></li><li class="da"><span>embed · pgvector</span></li><li class="da"><span>hybrid retrieve</span></li><li class="mo"><span>agent chat</span></li>
+          </ul>
+          <div class="slo"><div><b>3</b><span>languages parsed</span></div><div><b>5</b><span>model providers, one router</span></div><div><b>6</b><span>services in compose</span></div></div>
+          <p class="stack">Go · Gin · pgx · FastAPI · pgvector · Prometheus · Grafana · React</p>
+          <p class="links"><a href="https://github.com/Atharv-3105/KnowYourRepo" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+        <article class="panel svc">
+          <div class="svc__top"><h3>ArchiGen AI</h3><span class="st">live</span></div>
+          <div class="ep"><b>POST</b>/generate <span>→ text/event-stream</span></div>
+          <p>Plain language in, an Excalidraw architecture diagram and an Architecture Decision Record out. The LLM picks the boxes; Graphviz places them, so layouts never overlap.</p>
+          <ul class="pipe">
+            <li class="mo"><span>parse intent</span></li><li class="mo"><span>design</span></li><li class="sv"><span>layout · Graphviz</span></li><li class="sv"><span>validate</span></li><li class="mo"><span>repair ×3</span></li><li class="sv"><span>stream · SSE</span></li>
+          </ul>
+          <div class="slo"><div><b>~70 → ~99%</b><span>render success after repair</span></div><div><b>&lt; 8 s</b><span>per complex diagram</span></div><div><b>&lt; 100 ms</b><span>SSE streaming latency</span></div></div>
+          <p class="stack">Python · LangGraph · FastAPI · Graphviz · Clerk · React · TypeScript</p>
+          <p class="links"><a href="https://archigenai.vercel.app/" target="_blank" rel="noopener">Live ↗</a><a href="https://github.com/Atharv-3105/ArchiGen-AI" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+        <article class="panel svc">
+          <div class="svc__top"><h3>SmartFile Manager</h3><span class="st">shipped</span></div>
+          <div class="ep"><b>GET</b>/search <span>?q=invoice+from+march&amp;k=10</span></div>
+          <p>Drop a PDF, image or text file into a folder and find it later by what it says instead of what it’s called. Row, text and embedding land in one transaction or not at all.</p>
+          <ul class="pipe">
+            <li class="sv"><span>watch · fsnotify</span></li><li class="sv"><span>worker pool</span></li><li class="mo"><span>OCR · EasyOCR</span></li><li class="mo"><span>embed · MiniLM</span></li><li class="da"><span>store · SQLite</span></li><li class="da"><span>cosine top-k</span></li>
+          </ul>
+          <div class="slo"><div><b>8</b><span>concurrent ingestion workers</span></div><div><b>500+</b><span>documents indexed</span></div><div><b>&lt; 150 ms</b><span>semantic search</span></div></div>
+          <p class="stack">Go · fsnotify · FastAPI · EasyOCR · MiniLM-L6-v2 · SQLite · Docker</p>
+          <p class="links"><a href="https://github.com/Atharv-3105/SmartFile-Manager" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+        <article class="panel svc">
+          <div class="svc__top"><h3>JobBot</h3><span class="st dev">80% built</span></div>
+          <div class="ep"><b>BOT</b>/tailor <span>job_id=… → résumé.pdf + diff</span></div>
+          <p>A Telegram bot that crawls job boards, scores each listing against a real profile and tailors a résumé, with code-level guards so the LLM can’t invent a skill or a number.</p>
+          <ul class="pipe">
+            <li class="sv"><span>crawl · 8 boards</span></li><li class="mo"><span>score · LLM batch</span></li><li class="mo"><span>tailor</span></li><li class="sv"><span>guard · diff</span></li><li class="sv"><span>pdflatex</span></li><li class="da"><span>SQLite</span></li>
+          </ul>
+          <div class="slo"><div><b>0/12 → 12/12</b><span>adversarial test matrix</span></div><div><b>0</b><span>fabrication leaks</span></div><div><b>6</b><span>LLM providers with failover</span></div></div>
+          <p class="stack">Python · LangGraph · Telegram · SQLAlchemy · SQLite · pdflatex</p>
+          <p class="links"><a href="https://github.com/Atharv-3105/JobBot" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+        <article class="panel svc">
+          <div class="svc__top"><h3>Semantic-Duel</h3><span class="st">playable</span></div>
+          <div class="ep"><b>WS</b>/play <span>{ "word": "ocean" } ⇄ { "score": 0.71 }</span></div>
+          <p>A 60-second word battle for two. The Go server matches players, runs each room as a state machine and scores every word by semantic similarity to the target.</p>
+          <ul class="pipe">
+            <li class="sv"><span>WebSocket hub</span></li><li class="sv"><span>matchmaker</span></li><li class="sv"><span>room · 60 s FSM</span></li><li class="mo"><span>embed</span></li><li class="da"><span>cosine vs target</span></li>
+          </ul>
+          <div class="slo"><div><b>2</b><span>players per room</span></div><div><b>60 s</b><span>rounds, auto-requeue</span></div><div><b>Go</b><span>goroutines and channels</span></div></div>
+          <p class="stack">Go · Gorilla WebSocket · channels · React · TypeScript</p>
+          <p class="links"><a href="https://github.com/Atharv-3105/Semantic-Duel" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+        <article class="panel svc">
+          <div class="svc__top"><h3>Financial Agentic RAG</h3><span class="st">built</span></div>
+          <div class="ep"><b>POST</b>/api/query <span>{ "query": "Compare NVIDIA and AMD for 3 months" }</span></div>
+          <p>A multi-agent financial reasoning system: an LLM reads the question, agents pull documents, market data and news, reason about risk, and return a structured report.</p>
+          <ul class="pipe">
+            <li class="mo"><span>understand query</span></li><li class="da"><span>RAG retrieve</span></li><li class="da"><span>market + news</span></li><li class="mo"><span>risk reasoning</span></li><li class="sv"><span>report · JSON</span></li>
+          </ul>
+          <div class="slo"><div><b>Multi-agent</b><span>query, retrieval, market, risk</span></div><div><b>FastAPI</b><span>Swagger UI at /docs</span></div><div><b>Docker</b><span>deployed as a Space</span></div></div>
+          <p class="stack">Python · FastAPI · RAG · LLM agents · Docker · Hugging Face Spaces</p>
+          <p class="links"><a href="https://github.com/Atharv-3105/Finance_AgenticRAG" target="_blank" rel="noopener">Repository ↗</a></p>
+        </article>
+      </div>
+      <p class="also">Also deployed to the cluster: <a href="https://github.com/Atharv-3105/Social_Music_Graph" target="_blank" rel="noopener">Social Music Graph</a> (GraphSAGE), <a href="https://github.com/Atharv-3105/Local_RAG_WyrdWiki" target="_blank" rel="noopener">Local RAG</a>, <a href="https://github.com/Atharv-3105/financial-document-analyzer" target="_blank" rel="noopener">Financial Document Analyzer</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec da" id="stack" data-span="5">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>infra.describe</b></span><h2>The stack, by plane</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+        <p>How my systems are put together: a serving plane in front, a model plane behind it, and a data plane under both.</p>
+      </div>
+      <div class="panel planes">
+        <div class="plane sv">
+          <div class="plane__k"><h3>Serving plane</h3><p>Takes the request, keeps it fair, streams the answer back.</p></div>
+          <div class="plane__v">
+            <div class="node"><h4>APIs</h4><p>Go (Gin), FastAPI, gRPC, REST</p></div>
+            <div class="node"><h4>Realtime</h4><p>WebSockets, Server-Sent Events</p></div>
+            <div class="node"><h4>Concurrency</h4><p>Bounded worker pools, rate limiting, goroutines and channels</p></div>
+          </div>
+        </div>
+        <div class="plane mo">
+          <div class="plane__k"><h3>Model plane</h3><p>Trains, fine-tunes, routes and guards the model calls.</p></div>
+          <div class="plane__v">
+            <div class="node"><h4>Training</h4><p>PyTorch, TensorFlow, scikit-learn, Weights &amp; Biases</p></div>
+            <div class="node"><h4>LLMs</h4><p>Hugging Face Transformers, LoRA / QLoRA, vLLM, provider routing</p></div>
+            <div class="node"><h4>Orchestration</h4><p>LangGraph, LangChain, LlamaIndex, validate-and-repair loops</p></div>
+          </div>
+        </div>
+        <div class="plane da">
+          <div class="plane__k"><h3>Data plane</h3><p>Stores state, embeddings and the numbers that prove it works.</p></div>
+          <div class="plane__v">
+            <div class="node"><h4>Stores</h4><p>PostgreSQL, Redis, SQLite, MongoDB</p></div>
+            <div class="node"><h4>Vectors</h4><p>pgvector, FAISS, ChromaDB, hybrid lexical + semantic</p></div>
+            <div class="node"><h4>Ops</h4><p>Docker, AWS, GCP, CI/CD, Prometheus, Grafana</p></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow" aria-label="Typical request path"><b>typical path</b> client → <span class="tag sv">gateway</span> → <span class="tag sv">worker pool</span> → <span class="tag da">retrieve</span> → <span class="tag mo">model router</span> → <span class="tag mo">guard</span> → <span class="tag sv">stream</span> → client</p>
+    </div>
+  </section>
+
+  <section class="sec da" id="metrics" data-span="6">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>metrics.scrape</b></span><h2>Metrics</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+      </div>
+      <div class="metrics">
+        <div class="panel metric"><code>leetcode_problems_solved_total</code><b>600+</b><span>DSA problems on LeetCode</span></div>
+        <div class="panel metric"><code>hackerrank_stars{lang}</code><b>5★ ×2</b><span>Python and C/C++</span></div>
+        <div class="panel metric"><code>sih_internal_finals_total</code><b>2</b><span>Smart India Hackathon, 2024 and 2025</span></div>
+        <div class="panel metric"><code>certifications{issuer="redis"}</code><b>Redis for AI</b><span>Redis University, 2025</span></div>
+        <div class="panel metric"><code>educators_trained_total</code><b>150+</b><span>Python and generative AI, NimbleQ</span></div>
+        <div class="panel metric"><code>github_public_repos</code><b>39</b><span>since September 2022</span></div>
+        <div class="panel metric"><code>models_rebuilt_from_paper</code><b>12+</b><span>listed in the registry above</span></div>
+        <div class="panel metric"><code>hf_hub_user</code><b>Atharva31</b><span>datasets and models on Hugging Face</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sv" id="contact" data-span="7">
+    <div class="wrap">
+      <div class="sec__hd">
+        <div><span class="spanid">span <b>response.stream</b></span><h2>Response</h2></div>
+        <div class="mini" aria-hidden="true"></div>
+      </div>
+      <div class="resp">
+        <div class="side">
+          <p class="pitch">Looking for AI engineer, ML engineer or backend roles on AI products: work where the model and the system both matter.</p>
+          <p>Based in Kanpur and happy to relocate or work remotely. Email is the fastest way to reach me.</p>
+          <div class="btns"><a class="btn btn--fill" href="mailto:atharvdwivedi8@gmail.com">Email me</a><button class="btn" type="button" data-copy="atharvdwivedi8@gmail.com">Copy email</button></div>
+        </div>
+        <div class="panel http">
+          <div class="http__st"><b>HTTP/1.1 200 OK</b><span>content-type: application/json</span></div>
+<pre>{
+  <span class="k">"name"</span>: "Atharva Dwivedi",
+  <span class="k">"email"</span>: "<a href="mailto:atharvdwivedi8@gmail.com">atharvdwivedi8@gmail.com</a>"<button type="button" data-copy="atharvdwivedi8@gmail.com" aria-label="Copy email">copy</button>,
+  <span class="k">"github"</span>: "<a href="https://github.com/Atharv-3105" target="_blank" rel="noopener">github.com/Atharv-3105</a>",
+  <span class="k">"huggingface"</span>: "<a href="https://huggingface.co/Atharva31" target="_blank" rel="noopener">huggingface.co/Atharva31</a>",
+  <span class="k">"linkedin"</span>: "<a href="https://www.linkedin.com/in/atharv3105/" target="_blank" rel="noopener">linkedin.com/in/atharv3105</a>",
+  <span class="k">"leetcode"</span>: "<a href="https://leetcode.com/u/atharvdwivedi8/" target="_blank" rel="noopener">leetcode.com/u/atharvdwivedi8</a>",
+  <span class="k">"open_to"</span>: ["relocation", "remote"]
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>trace complete · 8/8 spans · 200 OK</span><span>Design option I · <a href="../">all designs</a> · <a href="../../">main site</a></span></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var darkQ = matchMedia("(prefers-color-scheme: dark)");
+  function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : darkQ.matches; }
+  var tb = document.getElementById("theme-btn");
+  function label() { tb.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme"); }
+  tb.addEventListener("click", function () { var n = isDark() ? "light" : "dark"; root.setAttribute("data-theme", n); try { localStorage.setItem("trace-theme", n); } catch (e) {} label(); });
+  if (darkQ.addEventListener) darkQ.addEventListener("change", label);
+  label();
+
+  var toast = document.getElementById("toast"), tt;
+  function say(m) { toast.textContent = m; toast.classList.add("on"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("on"); }, 2000); }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); say(ok ? "email copied" : text);
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-copy]"); if (!b) return;
+    var t = b.getAttribute("data-copy");
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { say("email copied"); }, function () { fallbackCopy(t); });
+    else fallbackCopy(t);
+  });
+
+  /* the trace: x/w are percentages of the 420 ms request */
+  var TOTAL = 420;
+  var SPANS = [
+    { n: "GET /atharva", p: "rt", d: 0, x: 0, w: 100, href: "#top", attrs: [["service.name", "atharva"], ["focus", ["deep learning", "llm systems", "backend"]], ["lang", ["python", "go"]], ["degree", "B.Tech AI & ML, AKTU 2026"], ["open_to", ["relocation", "remote"]]] },
+    { n: "readme.load", p: "sv", d: 1, x: 1, w: 9, href: "#about", attrs: [["section", "About me"], ["now", "SDE intern, Helionyex Solutions"], ["teaching", "150+ educators, NimbleQ"], ["based_in", "Kanpur, IN"]] },
+    { n: "logs.replay", p: "da", d: 1, x: 8, w: 14, href: "#logs", attrs: [["section", "Timeline"], ["since", "2022-09"], ["lines", 12], ["latest", "open to roles"]] },
+    { n: "model.registry.list", p: "mo", d: 1, x: 20, w: 30, href: "#models", attrs: [["section", "Model registry"], ["models", 12], ["framework", ["pytorch", "numpy"]], ["highlights", ["LLaMA 2", "Gemma 3", "VQ-VAE", "PPO"]]] },
+    { n: "services.discover", p: "sv", d: 1, x: 46, w: 28, href: "#services", attrs: [["section", "Services"], ["count", 6], ["live", "archigenai.vercel.app"], ["stack", ["go", "fastapi", "langgraph", "pgvector"]]] },
+    { n: "infra.describe", p: "da", d: 2, x: 52, w: 16, href: "#stack", attrs: [["section", "Stack"], ["planes", ["serving", "model", "data"]], ["stores", ["postgres", "redis", "pgvector"]], ["ops", ["docker", "prometheus", "grafana"]]] },
+    { n: "metrics.scrape", p: "da", d: 1, x: 73, w: 12, href: "#metrics", attrs: [["section", "Metrics"], ["leetcode_solved", "600+"], ["hackerrank", "5★ Python, 5★ C/C++"], ["sih_finals", 2]] },
+    { n: "response.stream", p: "sv", d: 1, x: 84, w: 15, href: "#contact", attrs: [["section", "Response"], ["status", 200], ["email", "atharvdwivedi8@gmail.com"], ["content_type", "application/json"]] }
+  ];
+  function ms(w) { return Math.round(w / 100 * TOTAL); }
+  var list = document.getElementById("spans"), attrs = document.getElementById("attrs");
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) document.getElementById("trace").classList.remove("anim");
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function val(v) {
+    if (Array.isArray(v)) return "[" + v.map(function (x) { return '<span class="s">"' + esc(x) + '"</span>'; }).join(", ") + "]";
+    if (typeof v === "number") return '<span class="n">' + v + "</span>";
+    return '<span class="s">"' + esc(v) + '"</span>';
+  }
+  function show(i) {
+    var s = SPANS[i];
+    attrs.className = "attrs " + s.p;
+    attrs.innerHTML = "<h3>attributes · <b>" + esc(s.n) + "</b> · " + ms(s.w) + " ms</h3><dl>" + s.attrs.map(function (a) { return "<dt>" + esc(a[0]) + "</dt><dd>" + val(a[1]) + "</dd>"; }).join("") + "</dl>";
+    Array.prototype.forEach.call(list.querySelectorAll("a"), function (a, k) { a.classList.toggle("on", k === i); });
+  }
+  SPANS.forEach(function (s, i) {
+    var li = document.createElement("li"); li.className = "span " + s.p;
+    li.innerHTML = '<a href="' + s.href + '" style="--d:' + s.d + '"><span class="nm"><span>' + esc(s.n) + "</span><small>" + ms(s.w) + ' ms</small></span><span class="lane"><span class="bar" style="--x:' + s.x + "%;--w:" + s.w + "%;--i:" + i + '"></span></span></a>';
+    var a = li.firstChild;
+    a.addEventListener("mouseenter", function () { show(i); });
+    a.addEventListener("focus", function () { show(i); });
+    list.appendChild(li);
+    var sec = document.querySelector('[data-span="' + i + '"] .mini');
+    if (sec) sec.innerHTML = '<i style="--x:' + s.x + "%;--w:" + s.w + '%"></i><span' + (s.x + s.w > 60 ? ' class="l"' : "") + '>' + ms(s.w) + " ms</span>";
+  });
+  show(0);
+  document.getElementById("trace").addEventListener("mouseleave", function () { show(0); });
+})();
+</script>
+</body>
+</html>

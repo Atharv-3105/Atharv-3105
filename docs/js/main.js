@@ -1,5 +1,5 @@
 /* Atharva Central — no dependencies. The page reads fine without this file;
- * it adds the split-flap motion, the Kanpur station clock and the network map.
+ * it adds the split-flap motion and the network map.
  */
 (function () {
   "use strict";
@@ -104,58 +104,6 @@
       spin(Array.prototype.slice.call(row.querySelectorAll(".flap")), 0);
     });
   });
-
-  /* ---------- station clock on Kanpur time ---------- */
-  var NS = "http://www.w3.org/2000/svg";
-  var ticks = document.getElementById("ticks");
-  for (var i = 0; i < 60; i++) {
-    var r = document.createElementNS(NS, "rect"), big = i % 5 === 0;
-    r.setAttribute("class", "tick");
-    r.setAttribute("x", big ? 97 : 98.8); r.setAttribute("y", 12);
-    r.setAttribute("width", big ? 6 : 2.4); r.setAttribute("height", big ? 20 : 7);
-    r.setAttribute("transform", "rotate(" + i * 6 + " 100 100)");
-    ticks.appendChild(r);
-  }
-  var hH = document.getElementById("hand-h"), hM = document.getElementById("hand-m"), hS = document.getElementById("hand-s");
-  var topTime = document.getElementById("top-time"), sub = document.getElementById("clock-sub");
-  var fmt;
-  try { fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }); } catch (e) { fmt = null; }
-  function kanpurNow() {
-    var d = new Date();
-    if (!fmt) { var u = new Date(d.getTime() + (330 + d.getTimezoneOffset()) * 60000); return { h: u.getHours(), m: u.getMinutes(), s: u.getSeconds(), ms: d.getMilliseconds() }; }
-    var parts = {}; fmt.formatToParts(d).forEach(function (p) { parts[p.type] = p.value; });
-    return { h: +parts.hour % 24, m: +parts.minute, s: +parts.second, ms: d.getMilliseconds() };
-  }
-  var diff = 330 + new Date().getTimezoneOffset(); // minutes Kanpur is ahead of the visitor
-  function rel() {
-    if (diff === 0) return "same time zone as you";
-    var a = Math.abs(diff), h = Math.floor(a / 60), m = a % 60;
-    return (h ? h + " h " : "") + (m ? m + " min " : "") + (diff > 0 ? "ahead of you" : "behind you");
-  }
-  var lastMin = -1;
-  function tick() {
-    var t = kanpurNow();
-    var sec = t.s + t.ms / 1000;
-    // like a Swiss station clock: the second hand sweeps round in 58.5 s, then waits for the minute
-    var sAngle = reduce ? t.s * 6 : Math.min(360, sec / 58.5 * 360);
-    hS.setAttribute("transform", "rotate(" + sAngle + " 100 100)");
-    if (t.m !== lastMin) {
-      lastMin = t.m;
-      hM.setAttribute("transform", "rotate(" + t.m * 6 + " 100 100)");
-      hH.setAttribute("transform", "rotate(" + ((t.h % 12) * 30 + t.m * 0.5) + " 100 100)");
-      var hh = String(t.h).padStart(2, "0"), mm = String(t.m).padStart(2, "0");
-      topTime.textContent = hh + ":" + mm;
-      sub.textContent = hh + ":" + mm + " now · UTC+5:30 · " + rel();
-    }
-  }
-  tick();
-  var clockEl = document.getElementById("clock"), clockVisible = true;
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { clockVisible = en[0].isIntersecting; }).observe(clockEl);
-  if (reduce) setInterval(tick, 1000);
-  else {
-    setInterval(function () { if (!clockVisible) tick(); }, 1000); // keeps the top-bar time current
-    (function loop() { if (clockVisible) tick(); requestAnimationFrame(loop); })();
-  }
 
   /* ---------- network map ---------- */
   (function map() {

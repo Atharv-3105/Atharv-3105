@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atharva Is All You Need</title>
+<meta name="description" content="Atharva Dwivedi, AI engineer, presented as a Transformer: input embedding, positional encoding, multi-head attention over six projects, a feed-forward lab of models rebuilt from their papers, and a softmax of highlights.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='22' width='52' height='20' rx='6' fill='%23FBD7A8' stroke='%23121315' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&family=STIX+Two+Text:ital,wght@0,400;1,400;1,500&display=swap">
+<script>try{var t=localStorage.getItem("tf-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<style>
+:root {
+  --bg: #FFFFFF; --bg-2: #F5F6F7; --ink: #121315; --ink-2: #50545C; --rule: #E1E3E6; --link: #A8481A;
+  --emb: #FADCE3; --mha: #FBD7A8; --norm: #F4F1B1; --ffn: #CFE5F7; --lin: #DCD5F5; --soft: #CDEBCB;
+  --heat: 214, 110, 20;          /* attention cells */
+  --pe-neg: 59, 111, 182; --pe-pos: 194, 70, 46; --pe-mid: 255, 255, 255;
+  --font: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+  --math: "STIX Two Text", "Times New Roman", serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101113; --bg-2: #17191C; --ink: #ECEDEF; --ink-2: #A6ABB3; --rule: #2A2D33; --link: #F2A65A;
+    --emb: #4A2A33; --mha: #4D3A1E; --norm: #45421C; --ffn: #1F3A4E; --lin: #332C52; --soft: #23422A;
+    --heat: 242, 166, 90; --pe-neg: 108, 155, 224; --pe-pos: 224, 114, 88; --pe-mid: 23, 25, 28;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101113; --bg-2: #17191C; --ink: #ECEDEF; --ink-2: #A6ABB3; --rule: #2A2D33; --link: #F2A65A;
+  --emb: #4A2A33; --mha: #4D3A1E; --norm: #45421C; --ffn: #1F3A4E; --lin: #332C52; --soft: #23422A;
+  --heat: 242, 166, 90; --pe-neg: 108, 155, 224; --pe-pos: 224, 114, 88; --pe-mid: 23, 25, 28;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 70px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 1.02rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img, svg { max-width: 100%; }
+a { color: var(--link); text-underline-offset: 0.18em; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; line-height: 1.1; text-wrap: balance; }
+p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+.wrap { max-width: 1160px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+.mono { font-family: var(--mono); }
+.math { font-family: var(--math); font-style: italic; }
+.lbl { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+.top__in { display: flex; align-items: center; gap: 18px; height: 54px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ink); text-decoration: none; }
+.brand i { display: grid; place-items: center; width: 30px; height: 22px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--mha); font-style: normal; font-family: var(--mono); font-size: 0.7rem; }
+.nav { margin-left: auto; display: flex; gap: 4px; overflow-x: auto; }
+.nav a { font-size: 0.85rem; color: var(--ink-2); text-decoration: none; padding: 6px 9px; border-radius: 6px; white-space: nowrap; }
+.nav a:hover { color: var(--ink); background: var(--bg-2); }
+.theme-btn { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border-radius: 8px; border: 1px solid var(--rule); background: none; color: var(--ink); cursor: pointer; flex: 0 0 auto; }
+
+/* hero */
+.hero { padding-block: clamp(36px, 6vw, 80px) clamp(24px, 4vw, 48px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.preprint { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-2); }
+.hero h1 { margin-top: 14px; font-size: clamp(2.8rem, 1.6rem + 5vw, 5.2rem); font-weight: 700; letter-spacing: -0.035em; line-height: 0.95; }
+.subtitle { margin-top: 16px; font-family: var(--math); font-style: italic; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.8rem); line-height: 1.3; max-width: 28em; }
+.authors { margin-top: 18px; font-size: 0.95rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 22px; }
+.authors span { white-space: nowrap; }
+.abstract { margin-top: 26px; padding: 18px 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--bg-2); max-width: 40em; }
+.abstract h2 { font-size: 0.95rem; font-weight: 700; text-align: center; margin-bottom: 8px; letter-spacing: 0.02em; }
+.abstract p { font-size: 0.98rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); font: 600 0.95rem var(--font); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--bg-2); }
+.btn--fill { background: var(--ink); color: var(--bg); }
+.btn--fill:hover { background: var(--link); border-color: var(--link); }
+
+.figure1 { border: 1px solid var(--rule); border-radius: 14px; padding: 12px 10px 14px; background: var(--bg); }
+.figure1 svg { display: block; width: 100%; height: auto; max-width: 400px; margin-inline: auto; }
+.figure1 figcaption, .cap { margin-top: 10px; font-size: 0.85rem; color: var(--ink-2); text-align: center; }
+.figure1 figcaption b, .cap b { color: var(--ink); }
+.tf .blk { stroke: var(--ink); stroke-width: 1.5; }
+.tf a .blk { transition: stroke-width 0.15s; }
+.tf a:hover .blk, .tf a:focus .blk { stroke-width: 3; }
+.tf a:focus { outline: none; }
+.tf .t { fill: var(--ink); font-family: var(--font); font-size: 13px; font-weight: 600; }
+.tf .t-s { fill: var(--ink-2); font-family: var(--mono); font-size: 10px; }
+.tf .go { fill: var(--link); font-family: var(--mono); font-size: 10.5px; font-weight: 600; }
+.tf .ln { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+.tf .ah { fill: var(--ink); }
+.tf .box { fill: var(--bg-2); stroke: var(--ink-2); stroke-width: 1.2; }
+
+/* sections */
+.sec { padding-block: clamp(28px, 4vw, 48px); }
+.blockhead { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 18px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1.5px solid var(--ink); border-radius: 10px; font-weight: 700; font-size: 0.95rem; background: var(--c); }
+.blockhead .eq { font-family: var(--math); font-style: italic; font-size: 1.05rem; color: var(--ink-2); }
+.sec h2.title { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.8rem); font-weight: 700; letter-spacing: -0.025em; }
+.sec .intro { margin-top: 10px; color: var(--ink-2); max-width: 62ch; }
+
+.addnorm { display: flex; align-items: center; gap: 12px; margin-block: 8px; }
+.addnorm::before, .addnorm::after { content: ""; height: 1px; background: var(--rule); flex: 1; }
+.addnorm span { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--norm); font-family: var(--mono); font-size: 0.75rem; }
+.addnorm b { font-size: 1rem; line-height: 1; }
+
+/* about */
+.two { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); margin-top: 22px; align-items: start; }
+.prose { display: grid; gap: 14px; max-width: 64ch; }
+.prose .lead { font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem); line-height: 1.45; font-weight: 500; }
+.facts { border-top: 1.5px solid var(--ink); }
+.facts div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 10px; padding-block: 11px; border-bottom: 1px solid var(--rule); }
+.facts dt { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-2); padding-top: 3px; }
+.facts dd { font-weight: 500; }
+
+/* positional encoding */
+.pe { margin-top: 22px; border: 1px solid var(--rule); border-radius: 12px; padding: 14px; background: var(--bg-2); }
+.pe canvas { display: block; width: 100%; height: 132px; border-radius: 6px; }
+.pe-axis { position: relative; height: 22px; margin-top: 6px; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); }
+.pe-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.pe-axis .first { transform: none; }
+.pe-axis .last { transform: translateX(-100%); }
+.pe-axis span::before { content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 5px; background: var(--ink-2); }
+.pe-axis .first::before { left: 0; }
+.pe-axis .last::before { left: auto; right: 0; }
+.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.ev { border-top: 3px solid var(--ink); padding-top: 10px; }
+.ev .when { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-2); }
+.ev h3 { font-size: 1.08rem; font-weight: 700; margin-top: 4px; }
+.ev p { font-size: 0.92rem; color: var(--ink-2); margin-top: 4px; }
+
+/* attention */
+.att-wrap { margin-top: 22px; overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; padding: 14px; }
+table.att { border-collapse: separate; border-spacing: 3px; min-width: 640px; width: 100%; table-layout: fixed; }
+.att thead td:first-child { width: 160px; }
+.att th { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; color: var(--ink-2); padding: 4px; }
+.att thead th { height: 74px; vertical-align: bottom; }
+.att thead th span { display: inline-block; transform: rotate(-40deg); transform-origin: left bottom; white-space: nowrap; margin-left: 50%; }
+.att tbody th { text-align: right; white-space: nowrap; font-family: var(--font); font-size: 0.88rem; font-weight: 600; color: var(--ink); padding-right: 10px; }
+.att td { height: 34px; border-radius: 5px; text-align: center; font-family: system-ui, sans-serif; font-size: 1rem; background: rgba(var(--heat), var(--w)); color: var(--ink); border: 1px solid var(--rule); }
+.att td[data-w="1"] { color: #fff; }
+:root[data-theme="dark"] .att td[data-w="1"] { color: #101113; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .att td[data-w="1"] { color: #101113; } }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 0.82rem; color: var(--ink-2); }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; border: 1px solid var(--rule); }
+
+.heads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+.head { display: flex; flex-direction: column; gap: 10px; border: 1.5px solid var(--ink); border-radius: 14px; padding: 18px; background: var(--bg); }
+.head__k { display: inline-flex; align-self: flex-start; padding: 2px 9px; border-radius: 999px; background: var(--mha); border: 1px solid var(--ink); font-family: var(--mono); font-size: 0.72rem; }
+.head h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.015em; }
+.head .stk { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-2); }
+.head p { font-size: 0.95rem; }
+.kv { display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 8px; border-top: 1px dashed var(--rule); }
+.kv b { display: block; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.kv span { font-size: 0.78rem; color: var(--ink-2); }
+.head .links { margin-top: auto; display: flex; gap: 14px; font-weight: 600; font-size: 0.92rem; }
+.also { margin-top: 18px; font-size: 0.95rem; color: var(--ink-2); }
+.also a { font-weight: 600; }
+
+/* ffn lab */
+.eqs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.eq-card { border: 1px solid var(--rule); border-left: 5px solid var(--ink); border-radius: 10px; padding: 14px 16px; background: var(--bg); display: grid; gap: 6px; align-content: start; }
+.eq-card h3 { font-size: 1.02rem; font-weight: 700; }
+.eq-card .f { font-family: var(--math); font-style: italic; font-size: 1.12rem; line-height: 1.5; padding: 8px 10px; background: var(--ffn); border-radius: 8px; overflow-x: auto; white-space: nowrap; }
+.eq-card .f sub, .eq-card .f sup { font-size: 0.7em; }
+.eq-card p { font-size: 0.88rem; color: var(--ink-2); }
+.eq-card a { font-size: 0.85rem; font-weight: 600; }
+.tbl-wrap { overflow-x: auto; margin-top: 22px; }
+table.res { border-collapse: collapse; min-width: 420px; }
+.res caption { caption-side: top; text-align: left; font-size: 0.85rem; color: var(--ink-2); padding-bottom: 6px; }
+.res caption b { color: var(--ink); }
+.res th, .res td { padding: 6px 16px 6px 0; text-align: left; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.res thead th { border-top: 1.5px solid var(--ink); border-bottom: 1px solid var(--ink); font-weight: 600; font-size: 0.85rem; }
+.res tbody tr:last-child td { border-bottom: 1.5px solid var(--ink); }
+
+/* linear: skills as a weight matrix */
+.wm { margin-top: 22px; border-top: 1.5px solid var(--ink); }
+.wm > div { display: grid; grid-template-columns: 11em minmax(0, 1fr); gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.wm dt { font-weight: 700; }
+.wm dd { display: flex; flex-wrap: wrap; gap: 6px; }
+.wm dd span { font-family: var(--mono); font-size: 0.78rem; padding: 3px 9px; border-radius: 6px; background: var(--lin); border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+
+/* softmax */
+.topk { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.tok { display: grid; gap: 4px; align-content: start; padding: 14px 16px; border: 1.5px solid var(--ink); border-radius: 12px; background: var(--soft); color: var(--ink); text-decoration: none; }
+a.tok:hover { box-shadow: 0 6px 0 -2px var(--ink); }
+.tok .src { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); }
+.tok b { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.tok span { font-size: 0.88rem; }
+
+/* output */
+.out { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); margin-top: 22px; align-items: start; }
+.argmax { border: 1.5px solid var(--ink); border-radius: 14px; padding: 22px; }
+.argmax .math { font-size: 1.4rem; }
+.argmax p { margin-top: 10px; color: var(--ink-2); }
+.contact { border-top: 1.5px solid var(--ink); }
+.contact div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 10px; padding-block: 11px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.contact dt { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-2); }
+.contact dd { font-weight: 600; overflow-wrap: anywhere; }
+.copy { margin-left: 8px; font: 600 0.75rem var(--mono); padding: 3px 8px; border-radius: 6px; border: 1px solid var(--ink); background: var(--soft); color: var(--ink); cursor: pointer; }
+.foot { padding-block: 32px 44px; text-align: center; font-size: 0.85rem; color: var(--ink-2); }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 14px; border-radius: 10px; font-size: 0.88rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 30; }
+.toast.on { opacity: 1; }
+
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .figure1 svg { max-width: 360px; }
+  .heads, .eqs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topk { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .two, .out { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .theme-btn { margin-left: auto; }
+}
+@media (max-width: 560px) {
+  .heads, .eqs, .topk, .timeline { grid-template-columns: 1fr; }
+  .facts div, .contact div, .wm > div { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top__in">
+    <a class="brand" href="#top"><i aria-hidden="true">AD</i>Atharva Dwivedi</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#embedding">About</a><a href="#positional">Timeline</a><a href="#attention">Projects</a><a href="#ffn">Lab</a><a href="#linear">Skills</a><a href="#softmax">Highlights</a><a href="#output">Contact</a>
+    </nav>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="wrap hero" id="top" aria-labelledby="h-name">
+    <div class="hero-grid">
+      <div>
+        <p class="preprint">Preprint · v1 · October 2026 · cs.LG, cs.AI</p>
+        <h1 id="h-name">Atharva Dwivedi</h1>
+        <p class="subtitle">An AI engineer who rebuilds neural networks from their papers, then builds the systems that put them to work.</p>
+        <p class="authors"><span>B.Tech AI &amp; ML, AKTU ’26</span><span>Software Developer Intern, Helionyex Solutions</span><span>Kanpur, India</span></p>
+        <div class="abstract">
+          <h2>Abstract</h2>
+          <p>I learn deep learning by implementing it: attention, RoPE, KV caches, VQ-VAE codebooks, diffusion, PPO and a spiking network wired from a fruit-fly connectome, each written by hand in PyTorch or NumPy. I then apply what I learn in production-minded systems: retrieval over real codebases, multi-agent LLM pipelines with deterministic checks, and Go and FastAPI services that stay up. This page is organised as a Transformer; each block below is one section.</p>
+        </div>
+        <div class="btns">
+          <a class="btn btn--fill" href="#attention">See the projects ↓</a>
+          <a class="btn" href="https://github.com/Atharv-3105" target="_blank" rel="noopener">GitHub ↗</a>
+          <button class="btn" type="button" data-copy="atharvdwivedi8@gmail.com">Copy email</button>
+        </div>
+      </div>
+
+      <figure class="figure1">
+        <svg class="tf" viewBox="0 0 400 610" role="img" aria-labelledby="fig1-t">
+          <title id="fig1-t">Transformer diagram. Each block links to a section: Input Embedding to About, Positional Encoding to Timeline, Multi-Head Attention to Projects, Feed Forward to Lab, Linear to Skills, Softmax to Highlights, Output to Contact.</title>
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+          <!-- output -->
+          <a href="#output"><text class="t" x="160" y="26" text-anchor="middle">Output Probabilities</text><text class="go" x="160" y="44" text-anchor="middle">P(hire | portfolio) → Contact</text></a>
+          <line class="ln" x1="160" y1="96" x2="160" y2="56" marker-end="url(#ar)"/>
+          <!-- softmax -->
+          <a href="#softmax"><rect class="blk" x="70" y="96" width="180" height="34" rx="8" style="fill:var(--soft)"/><text class="t" x="160" y="118" text-anchor="middle">Softmax</text><text class="go" x="262" y="117">Highlights</text></a>
+          <line class="ln" x1="160" y1="168" x2="160" y2="132" marker-end="url(#ar)"/>
+          <!-- linear -->
+          <a href="#linear"><rect class="blk" x="70" y="168" width="180" height="34" rx="8" style="fill:var(--lin)"/><text class="t" x="160" y="190" text-anchor="middle">Linear</text><text class="go" x="262" y="189">Skills</text></a>
+          <line class="ln" x1="160" y1="226" x2="160" y2="204" marker-end="url(#ar)"/>
+          <!-- N x container -->
+          <rect class="box" x="44" y="226" width="232" height="246" rx="14"/>
+          <text class="t" x="22" y="356" text-anchor="middle">N×</text>
+          <text class="t-s" x="22" y="372" text-anchor="middle">4 yrs</text>
+          <!-- add & norm 2 -->
+          <rect class="blk" x="70" y="240" width="180" height="26" rx="7" style="fill:var(--norm)"/><text class="t" x="160" y="258" text-anchor="middle" style="font-size:12px">Add &amp; Norm</text>
+          <line class="ln" x1="160" y1="300" x2="160" y2="268" marker-end="url(#ar)"/>
+          <!-- feed forward -->
+          <a href="#ffn"><rect class="blk" x="70" y="300" width="180" height="40" rx="8" style="fill:var(--ffn)"/><text class="t" x="160" y="325" text-anchor="middle">Feed Forward</text><text class="go" x="288" y="324">Lab</text></a>
+          <!-- residual around FFN -->
+          <path class="ln" d="M160 360 H58 V253 H68" marker-end="url(#ar)"/>
+          <line class="ln" x1="160" y1="374" x2="160" y2="342" marker-end="url(#ar)"/>
+          <!-- add & norm 1 -->
+          <rect class="blk" x="70" y="374" width="180" height="26" rx="7" style="fill:var(--norm)"/><text class="t" x="160" y="392" text-anchor="middle" style="font-size:12px">Add &amp; Norm</text>
+          <line class="ln" x1="160" y1="416" x2="160" y2="402" marker-end="url(#ar)"/>
+          <!-- multi-head attention -->
+          <a href="#attention"><rect class="blk" x="70" y="416" width="180" height="40" rx="8" style="fill:var(--mha)"/><text class="t" x="160" y="441" text-anchor="middle">Multi-Head Attention</text><text class="go" x="288" y="440">Projects</text></a>
+          <!-- residual around MHA -->
+          <path class="ln" d="M160 482 H58 V387 H68" marker-end="url(#ar)"/>
+          <!-- Q K V -->
+          <path class="ln" d="M160 498 V482 M160 482 H118 V458 M160 482 V458 M160 482 H202 V458"/>
+          <path class="ah" d="M114.5 466 L118 458 L121.5 466z M156.5 466 L160 458 L163.5 466z M198.5 466 L202 458 L205.5 466z"/>
+          <!-- positional encoding -->
+          <circle cx="160" cy="512" r="12" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/><path class="ln" d="M152 512h16M160 504v16"/>
+          <a href="#positional"><circle cx="92" cy="512" r="15" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/><path class="ln" d="M80 512 q4 -9 8 0 t8 0 t8 0" style="stroke-width:1.6"/><text class="t-s" x="92" y="544" text-anchor="middle">Positional</text><text class="t-s" x="92" y="556" text-anchor="middle">Encoding</text><text class="go" x="72" y="516" text-anchor="end">Timeline</text></a>
+          <line class="ln" x1="108" y1="512" x2="146" y2="512"/>
+          <line class="ln" x1="160" y1="548" x2="160" y2="526" marker-end="url(#ar)"/>
+          <!-- input embedding -->
+          <a href="#embedding"><rect class="blk" x="70" y="548" width="180" height="34" rx="8" style="fill:var(--emb)"/><text class="t" x="160" y="570" text-anchor="middle">Input Embedding</text><text class="go" x="262" y="569">About</text></a>
+          <text class="t-s" x="160" y="602" text-anchor="middle">Inputs: papers, problems, products</text>
+        </svg>
+        <figcaption><b>Figure 1:</b> The architecture of this page. Select a block to jump to its section.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>x + Sublayer(x)</span></div></div>
+
+  <!-- ============ INPUT EMBEDDING · ABOUT ============ -->
+  <section class="wrap sec" id="embedding" aria-labelledby="h-about">
+    <div class="blockhead"><span class="chip" style="--c:var(--emb)">Input Embedding</span><span class="eq">x = E[token] ∈ ℝ<sup>d</sup></span></div>
+    <h2 class="title" id="h-about">About me</h2>
+    <div class="two">
+      <div class="prose">
+        <p class="lead">I learn deep learning by rebuilding it. Attention, RoPE, a KV cache, a VQ-VAE codebook, PPO's clipped objective: I write each one by hand and check the tensor shapes until the paper makes sense.</p>
+        <p>That habit became From_Scratch, a repository of ten modules that runs from activation functions to a spiking network wired from a real fruit-fly connectome, and Language_Model_Implementations, where I rebuilt LLaMA 2, Gemma 3 and Qwen 3 block by block and trained a small language model of my own.</p>
+        <p>Then I put models to work. My projects wrap LLMs and embeddings in systems that can be trusted: retrieval over real codebases, multi-agent pipelines whose outputs are checked in code, and services in Go and FastAPI that stay up under load.</p>
+        <p>I finished a B.Tech in AI &amp; ML at AKTU in 2026 and work as a software developer intern at Helionyex Solutions. I've also mentored 150+ educators in Python and generative AI at NimbleQ.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Focus</dt><dd>Deep learning, LLM systems, RAG</dd></div>
+        <div><dt>Rebuilt</dt><dd>Transformer, LLaMA 2, Gemma 3, Qwen 3, ViT, U-Net, VQ-VAE, DDPM, PPO, SAC</dd></div>
+        <div><dt>Tools</dt><dd>PyTorch, Hugging Face, LangGraph, FastAPI, Go</dd></div>
+        <div><dt>Now</dt><dd>Software Developer Intern, Helionyex Solutions</dd></div>
+        <div><dt>Learning</dt><dd>Distributed systems, AI infrastructure, search and retrieval</dd></div>
+        <div><dt>Based in</dt><dd>Kanpur, India. Relocation or remote</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ POSITIONAL ENCODING · TIMELINE ============ -->
+  <section class="wrap sec" id="positional" aria-labelledby="h-time">
+    <div class="blockhead"><span class="chip" style="--c:var(--bg)">⊕ Positional Encoding</span><span class="eq">PE(pos, 2i) = sin(pos / 100<sup>2i/d</sup>)</span></div>
+    <h2 class="title" id="h-time">Timeline</h2>
+    <p class="intro">Positions are months from September 2022 to now. The heatmap is the real sinusoidal encoding for each month, computed in your browser: 50 positions, 24 dimensions. The base is 100 instead of 10000 so that even the slowest dimensions turn within four years.</p>
+    <div class="pe">
+      <canvas id="pe" aria-label="Sinusoidal positional encoding heatmap for 50 monthly positions" role="img"></canvas>
+      <div class="pe-axis" aria-hidden="true"><span class="first" style="left:0">Sep 2022</span><span style="left:9%">2023</span><span style="left:33%">2024</span><span style="left:57%">2025</span><span style="left:81%">2026</span><span class="last" style="left:100%">now</span></div>
+    </div>
+    <div class="timeline">
+      <div class="ev"><p class="when">Sep 2022</p><h3>B.Tech AI &amp; ML begins</h3><p>Dr. A. P. J. Abdul Kalam Technical University, Lucknow. Joined GitHub the same month.</p></div>
+      <div class="ev"><p class="when">2024 · 2025</p><h3>Smart India Hackathon</h3><p>Internal finals in both years. Redis for AI certification in 2025.</p></div>
+      <div class="ev"><p class="when">Jun 2026 → now</p><h3>Software Developer Intern</h3><p>Helionyex Solutions: core modules of a climate data system, a real-time QC engine with 10+ WMO rules, 20+ secure IPC interfaces.</p></div>
+      <div class="ev"><p class="when">2026</p><h3>Graduated</h3><p>B.Tech in AI &amp; ML. Alongside: Python &amp; AI trainer at NimbleQ, 150+ educators mentored.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ MULTI-HEAD ATTENTION · PROJECTS ============ -->
+  <section class="wrap sec" id="attention" aria-labelledby="h-proj">
+    <div class="blockhead"><span class="chip" style="--c:var(--mha)">Multi-Head Attention</span><span class="eq">h = 6 · softmax(QK<sup>T</sup>/√d<sub>k</sub>)V</span></div>
+    <h2 class="title" id="h-proj">Projects</h2>
+    <p class="intro">Six projects, six heads. Each one attends to a different part of the stack; the matrix shows where.</p>
+    <div class="att-wrap">
+      <table class="att" id="att">
+        <caption class="sr" style="position:absolute;left:-9999px">What each project uses: core, used, or not used</caption>
+        <thead><tr><td></td><th scope="col"><span>PyTorch</span></th><th scope="col"><span>LLMs</span></th><th scope="col"><span>RAG</span></th><th scope="col"><span>Agents</span></th><th scope="col"><span>Embeddings</span></th><th scope="col"><span>Python</span></th><th scope="col"><span>Go</span></th><th scope="col"><span>FastAPI</span></th><th scope="col"><span>Vector store</span></th><th scope="col"><span>Docker</span></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="legend"><span><i style="background:rgba(var(--heat),1)"></i>core to the project</span><span><i style="background:rgba(var(--heat),0.42)"></i>used</span><span><i style="background:transparent"></i>not used</span></div>
+    </div>
+    <p class="cap"><b>Figure 2:</b> What each head attends to.</p>
+
+    <div class="heads">
+      <article class="head"><span class="head__k">head 1</span><h3>From_Scratch</h3><p class="stk">NumPy · PyTorch · Gymnasium</p><p>Ten modules of ML, DL and RL built from first principles: activations, attention variants, U-Net, VQ-VAE, DDPM, LoRA, five RL algorithms and Fly Brain.</p><div class="kv"><div><b>10</b><span>modules</span></div><div><b>50</b><span>notebooks and scripts</span></div><div><b>6</b><span>RL environments</span></div></div><p class="links"><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">Repository ↗</a></p></article>
+      <article class="head"><span class="head__k">head 2</span><h3>LM Implementations</h3><p class="stk">PyTorch · HF Tokenizers · W&amp;B</p><p>LLaMA 2, Gemma 3 270M and Qwen 3 0.6B rebuilt block by block, plus a small LM trained from scratch with its own BPE tokenizer.</p><div class="kv"><div><b>4</b><span>architectures</span></div><div><b>RoPE · GQA</b><span>SwiGLU, KV cache, QK-norm</span></div></div><p class="links"><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">Repository ↗</a></p></article>
+      <article class="head"><span class="head__k">head 3</span><h3>KnowYourRepo</h3><p class="stk">Go · tree-sitter · pgvector · FastAPI</p><p>Paste a GitHub URL, get a call graph and a chat that answers questions about the code with sources, using hybrid lexical and semantic retrieval.</p><div class="kv"><div><b>3</b><span>languages parsed</span></div><div><b>5</b><span>model providers</span></div><div><b>6</b><span>services</span></div></div><p class="links"><a href="https://github.com/Atharv-3105/KnowYourRepo" target="_blank" rel="noopener">Repository ↗</a></p></article>
+      <article class="head"><span class="head__k">head 4</span><h3>JobBot</h3><p class="stk">LangGraph · Python · SQLite</p><p>A LangGraph agent that scores jobs and tailors a résumé, with guards that stop the LLM from inventing skills or numbers.</p><div class="kv"><div><b>0/12 → 12/12</b><span>adversarial test matrix</span></div><div><b>0</b><span>fabrication leaks</span></div></div><p class="links"><a href="https://github.com/Atharv-3105/JobBot" target="_blank" rel="noopener">Repository ↗</a></p></article>
+      <article class="head"><span class="head__k">head 5</span><h3>ArchiGen AI</h3><p class="stk">LangGraph · FastAPI · Graphviz · React</p><p>A multi-agent pipeline that turns plain language into architecture diagrams, with a validate-and-repair loop around the LLM.</p><div class="kv"><div><b>~70 → ~99%</b><span>render success</span></div><div><b>&lt; 8 s</b><span>per diagram</span></div></div><p class="links"><a href="https://archigenai.vercel.app/" target="_blank" rel="noopener">Live ↗</a><a href="https://github.com/Atharv-3105/ArchiGen-AI" target="_blank" rel="noopener">Repository ↗</a></p></article>
+      <article class="head"><span class="head__k">head 6</span><h3>SmartFile Manager</h3><p class="stk">Go · EasyOCR · MiniLM · SQLite</p><p>Semantic search over local files: OCR and 384-d sentence embeddings behind a concurrent Go ingestion pipeline.</p><div class="kv"><div><b>500+</b><span>documents</span></div><div><b>&lt; 150 ms</b><span>search</span></div></div><p class="links"><a href="https://github.com/Atharv-3105/SmartFile-Manager" target="_blank" rel="noopener">Repository ↗</a></p></article>
+    </div>
+    <p class="also">Also attended to: <a href="https://github.com/Atharv-3105/Semantic-Duel" target="_blank" rel="noopener">Semantic-Duel</a> (real-time embedding-scored word game), <a href="https://github.com/Atharv-3105/Social_Music_Graph" target="_blank" rel="noopener">Social Music Graph</a> (GraphSAGE), <a href="https://github.com/Atharv-3105/Local_RAG_WyrdWiki" target="_blank" rel="noopener">Local RAG</a>, <a href="https://github.com/Atharv-3105/Finance_AgenticRAG" target="_blank" rel="noopener">Financial Agentic RAG</a>, <a href="https://github.com/Atharv-3105/financial-document-analyzer" target="_blank" rel="noopener">Financial Document Analyzer</a>.</p>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ FEED FORWARD · LAB ============ -->
+  <section class="wrap sec" id="ffn" aria-labelledby="h-lab">
+    <div class="blockhead"><span class="chip" style="--c:var(--ffn)">Feed Forward</span><span class="eq">FFN(x) = max(0, xW<sub>1</sub> + b<sub>1</sub>)W<sub>2</sub> + b<sub>2</sub></span></div>
+    <h2 class="title" id="h-lab">Rebuilt from the paper</h2>
+    <p class="intro">“What I cannot create, I do not understand.” Each of these I implemented by hand. The equation is the part I had to get right.</p>
+    <div class="eqs">
+      <div class="eq-card"><h3>Attention, five ways</h3><p class="f">softmax(QK<sup>T</sup> / √d<sub>k</sub>) V</p><p>Vanilla, multi-head, grouped-query, multi-head latent and cross attention.</p><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Attention" target="_blank" rel="noopener">From_Scratch/Attention ↗</a></div>
+      <div class="eq-card"><h3>RoPE</h3><p class="f">θ<sub>i</sub> = 10000<sup>−2i/d</sup>, rotate by pos·θ<sub>i</sub></p><p>Rotary position embeddings in LLaMA 2 and Gemma 3.</p><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM Implementations ↗</a></div>
+      <div class="eq-card"><h3>RMSNorm and SwiGLU</h3><p class="f">x / √(mean(x²) + ε) · g</p><p>Plus the SwiGLU feed-forward, (Swish(xW) ⊙ xV)W<sub>2</sub>, in LLaMA 2.</p><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM Implementations ↗</a></div>
+      <div class="eq-card"><h3>KV cache</h3><p class="f">K<sub>1:t</sub> = [K<sub>1:t−1</sub> ; k<sub>t</sub>]</p><p>Cached keys and values for autoregressive decoding, with KV-head repetition for GQA.</p><a href="https://github.com/Atharv-3105/Language_Model_Implementations" target="_blank" rel="noopener">LM Implementations ↗</a></div>
+      <div class="eq-card"><h3>LoRA</h3><p class="f">W′ = W + BA,  r ≪ d</p><p>Gemma 3 270M and OPT-125M fine-tuned with low-rank adapters.</p><a href="https://huggingface.co/Atharva31" target="_blank" rel="noopener">Hugging Face ↗</a></div>
+      <div class="eq-card"><h3>VQ-VAE</h3><p class="f">z<sub>q</sub> = e<sub>k</sub>,  k = argmin<sub>j</sub> ‖z<sub>e</sub> − e<sub>j</sub>‖</p><p>Learnable codebook with a straight-through estimator. CIFAR-10, reconstruction loss ≈ 0.061.</p><a href="https://github.com/Atharv-3105/VQ-VAE" target="_blank" rel="noopener">VQ-VAE ↗</a></div>
+      <div class="eq-card"><h3>DDPM</h3><p class="f">q(x<sub>t</sub> | x<sub>0</sub>) = 𝒩(√ᾱ<sub>t</sub> x<sub>0</sub>, (1 − ᾱ<sub>t</sub>) I)</p><p>Denoising diffusion and a VAE, side by side.</p><a href="https://github.com/Atharv-3105/From_Scratch" target="_blank" rel="noopener">From_Scratch ↗</a></div>
+      <div class="eq-card"><h3>PPO</h3><p class="f">min(r<sub>t</sub>Â<sub>t</sub>, clip(r<sub>t</sub>, 1−ε, 1+ε)Â<sub>t</sub>)</p><p>Trained on CartPole, LunarLander and ViZDoom. DQN, A3C and SAC alongside.</p><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Reinforcement_Learning" target="_blank" rel="noopener">RL suite ↗</a></div>
+      <div class="eq-card"><h3>Spiking neurons</h3><p class="f">τ dV/dt = −(V − V<sub>rest</sub>) + I(t)</p><p>Fly Brain: LIF neurons wired from a fruit-fly connectome, learning Flappy Bird with REINFORCE.</p><a href="https://github.com/Atharv-3105/From_Scratch/tree/master/Fly_Brain" target="_blank" rel="noopener">Fly Brain ↗</a></div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="res">
+        <caption><b>Table 1:</b> Gemma 3 270M + LoRA on a quotes dataset. lr 2e-5, effective batch 32.</caption>
+        <thead><tr><th scope="col">Epoch</th><th scope="col">Train loss</th><th scope="col">Eval loss</th></tr></thead>
+        <tbody><tr><td>1</td><td>2.149</td><td>1.915</td></tr><tr><td>2</td><td>2.085</td><td>1.893</td></tr><tr><td>3</td><td>2.045</td><td>1.894</td></tr></tbody>
+      </table>
+    </div>
+    <p class="also">Also implemented: Transformer, ViT, U-Net, GANs, VAE-GAN, DQN, Dueling DQN, A3C, SAC, TD3, DDPG, Mixture of Experts, DPO, BPE, LSTM.</p>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ LINEAR · SKILLS ============ -->
+  <section class="wrap sec" id="linear" aria-labelledby="h-skills">
+    <div class="blockhead"><span class="chip" style="--c:var(--lin)">Linear</span><span class="eq">y = xW<sup>T</sup> + b</span></div>
+    <h2 class="title" id="h-skills">Skills</h2>
+    <dl class="wm">
+      <div><dt>Deep learning</dt><dd><span>PyTorch</span><span>TensorFlow</span><span>scikit-learn</span><span>Hugging Face Transformers</span><span>LoRA / QLoRA</span><span>vLLM</span><span>Weights &amp; Biases</span></dd></div>
+      <div><dt>LLM systems</dt><dd><span>RAG</span><span>LangGraph</span><span>LangChain</span><span>LlamaIndex</span><span>ChromaDB</span><span>FAISS</span><span>Prompt engineering</span></dd></div>
+      <div><dt>Backend</dt><dd><span>FastAPI</span><span>Gin</span><span>gRPC</span><span>WebSockets</span><span>SSE</span><span>Microservices</span></dd></div>
+      <div><dt>Data &amp; ops</dt><dd><span>PostgreSQL + pgvector</span><span>Redis</span><span>MongoDB</span><span>SQLite</span><span>Docker</span><span>AWS</span><span>GCP</span><span>CI/CD</span></dd></div>
+      <div><dt>Languages</dt><dd><span>Python</span><span>Go</span><span>SQL</span><span>C++</span></dd></div>
+    </dl>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ SOFTMAX · HIGHLIGHTS ============ -->
+  <section class="wrap sec" id="softmax" aria-labelledby="h-hi">
+    <div class="blockhead"><span class="chip" style="--c:var(--soft)">Softmax</span><span class="eq">top-k, k = 8</span></div>
+    <h2 class="title" id="h-hi">Highlights</h2>
+    <div class="topk">
+      <a class="tok" href="https://leetcode.com/u/atharvdwivedi8/" target="_blank" rel="noopener"><span class="src">LeetCode</span><b>600+</b><span>DSA problems solved</span></a>
+      <a class="tok" href="https://www.hackerrank.com/profile/atharvdwivedi8" target="_blank" rel="noopener"><span class="src">HackerRank</span><b>5★ ×2</b><span>Python and C/C++</span></a>
+      <div class="tok"><span class="src">Smart India Hackathon</span><b>2024 · 25</b><span>internal finals, twice</span></div>
+      <div class="tok"><span class="src">Redis University</span><b>Redis for AI</b><span>certified, 2025</span></div>
+      <div class="tok"><span class="src">NimbleQ</span><b>150+</b><span>educators mentored in Python and GenAI</span></div>
+      <a class="tok" href="https://huggingface.co/Atharva31" target="_blank" rel="noopener"><span class="src">Hugging Face Hub</span><b>Atharva31</b><span>open datasets and models</span></a>
+      <a class="tok" href="https://github.com/Atharv-3105" target="_blank" rel="noopener"><span class="src">GitHub</span><b>39</b><span>public repositories since 2022</span></a>
+      <a class="tok" href="https://archigenai.vercel.app/" target="_blank" rel="noopener"><span class="src">Shipped</span><b>ArchiGen AI</b><span>live multi-agent app</span></a>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="addnorm" aria-hidden="true"><span><b>⊕</b>Add &amp; Norm</span></div></div>
+
+  <!-- ============ OUTPUT · CONTACT ============ -->
+  <section class="wrap sec" id="output" aria-labelledby="h-out">
+    <div class="blockhead"><span class="chip" style="--c:var(--bg)">Output Probabilities</span><span class="eq">ŷ = argmax P(y | portfolio)</span></div>
+    <h2 class="title" id="h-out">Next token: you</h2>
+    <div class="out">
+      <div class="argmax">
+        <p class="math">argmax → “hire”</p>
+        <p>Open to AI engineer, ML engineer and backend roles for AI products. Based in Kanpur; relocation or remote both work. Email is the fastest way to reach me.</p>
+      </div>
+      <dl class="contact">
+        <div><dt>Email</dt><dd><a href="mailto:atharvdwivedi8@gmail.com">atharvdwivedi8@gmail.com</a><button class="copy" type="button" data-copy="atharvdwivedi8@gmail.com">Copy</button></dd></div>
+        <div><dt>GitHub</dt><dd><a href="https://github.com/Atharv-3105" target="_blank" rel="noopener">github.com/Atharv-3105</a></dd></div>
+        <div><dt>Hugging Face</dt><dd><a href="https://huggingface.co/Atharva31" target="_blank" rel="noopener">huggingface.co/Atharva31</a></dd></div>
+        <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/atharv3105/" target="_blank" rel="noopener">linkedin.com/in/atharv3105</a></dd></div>
+        <div><dt>LeetCode</dt><dd><a href="https://leetcode.com/u/atharvdwivedi8/" target="_blank" rel="noopener">leetcode.com/u/atharvdwivedi8</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+<p class="foot">© 2026 Atharva Dwivedi · Figure 1 after Vaswani et al., 2017</p>
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement, darkQ = matchMedia("(prefers-color-scheme: dark)");
+  function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : darkQ.matches; }
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  var tb = document.getElementById("theme-btn");
+  function label() { tb.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme"); }
+  tb.addEventListener("click", function () { var n = isDark() ? "light" : "dark"; root.setAttribute("data-theme", n); try { localStorage.setItem("tf-theme", n); } catch (e) {} label(); drawPE(); });
+  if (darkQ.addEventListener) darkQ.addEventListener("change", function () { label(); drawPE(); });
+  label();
+
+  var toast = document.getElementById("toast"), tt;
+  function say(m) { toast.textContent = m; toast.classList.add("on"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("on"); }, 2000); }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-copy]"); if (!b) return;
+    var t = b.getAttribute("data-copy");
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { say("Email copied"); }, function () { say(t); });
+    else say(t);
+  });
+
+  /* attention matrix: 2 = core, 1 = used, 0 = not used */
+  var COLS = ["PyTorch", "LLMs", "RAG", "Agents", "Embeddings", "Python", "Go", "FastAPI", "Vector store", "Docker"];
+  var ROWS = [
+    ["From_Scratch",       [2, 1, 0, 0, 1, 2, 0, 0, 0, 0]],
+    ["LM Implementations", [2, 2, 0, 0, 1, 2, 0, 0, 0, 0]],
+    ["KnowYourRepo",       [0, 2, 2, 1, 2, 1, 2, 2, 2, 2]],
+    ["JobBot",             [0, 2, 0, 2, 0, 2, 0, 0, 0, 0]],
+    ["ArchiGen AI",        [0, 2, 0, 2, 0, 2, 0, 2, 0, 1]],
+    ["SmartFile Manager",  [1, 0, 1, 0, 2, 2, 2, 2, 1, 2]]
+  ];
+  var LV = { 2: ["1", "●", "core"], 1: ["0.42", "◐", "used"], 0: ["0", "", "not used"] };
+  var tbody = document.querySelector("#att tbody");
+  ROWS.forEach(function (r) {
+    var tr = document.createElement("tr");
+    var th = document.createElement("th"); th.scope = "row"; th.textContent = r[0]; tr.appendChild(th);
+    r[1].forEach(function (v, i) {
+      var td = document.createElement("td"), lv = LV[v];
+      td.style.setProperty("--w", lv[0]); td.setAttribute("data-w", v === 2 ? "1" : "0");
+      td.textContent = lv[1]; td.title = r[0] + " · " + COLS[i] + ": " + lv[2];
+      td.setAttribute("aria-label", COLS[i] + ": " + lv[2]);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  /* positional encoding heatmap */
+  var pe = document.getElementById("pe");
+  function drawPE() {
+    if (!pe || !pe.getContext) return;
+    var dpr = Math.min(devicePixelRatio || 1, 2), w = pe.clientWidth, h = pe.clientHeight;
+    pe.width = Math.round(w * dpr); pe.height = Math.round(h * dpr);
+    var ctx = pe.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var P = 50, D = 24, neg = cssv("--pe-neg").split(",").map(Number), pos = cssv("--pe-pos").split(",").map(Number), mid = cssv("--pe-mid").split(",").map(Number);
+    var cw = w / P, ch = h / D;
+    for (var p = 0; p < P; p++) {
+      for (var d = 0; d < D; d++) {
+        var i = Math.floor(d / 2), ang = p / Math.pow(100, (2 * i) / D);
+        var v = d % 2 === 0 ? Math.sin(ang) : Math.cos(ang);
+        var a = Math.abs(v), c = v < 0 ? neg : pos;
+        ctx.fillStyle = "rgb(" + [0, 1, 2].map(function (k) { return Math.round(mid[k] + (c[k] - mid[k]) * a); }).join(",") + ")";
+        ctx.fillRect(p * cw, d * ch, Math.ceil(cw) + 0.5, Math.ceil(ch) + 0.5);
+      }
+    }
+  }
+  drawPE();
+  var tmr; window.addEventListener("resize", function () { clearTimeout(tmr); tmr = setTimeout(drawPE, 120); });
+})();
+</script>
+</body>
+</html>
